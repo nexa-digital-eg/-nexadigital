@@ -3,7 +3,6 @@
 import { ShieldCheck, Clock, Cpu, Headset, type LucideIcon } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Reveal } from "./ui/Reveal";
-import { LogoMark } from "./Logo";
 
 const pointIcons: LucideIcon[] = [ShieldCheck, Clock, Cpu, Headset];
 
@@ -18,13 +17,14 @@ export function About() {
           <div className="relative mx-auto aspect-square w-full max-w-md">
             <div className="absolute inset-0 rounded-[2rem] bg-brand-gradient opacity-20 blur-2xl" />
             <div className="glass-card relative flex h-full flex-col items-center justify-center gap-6 p-10">
-              <div className="animate-float rounded-3xl border border-white/10 bg-white/[0.03] p-8">
-                <LogoMark className="h-24 w-24" />
-              </div>
-              <p className="text-center font-display text-2xl font-bold">
-                <span className="gradient-text">NEXA</span>{" "}
-                <span className="silver-text">DIGITAL</span>
-              </p>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo-lockup.png"
+                alt="Nexa Digital"
+                className="animate-float w-full max-w-xs object-contain"
+                loading="lazy"
+                decoding="async"
+              />
               <div className="grid w-full grid-cols-2 gap-3">
                 {["Web", "AI", "Systems", "Automation"].map((tag) => (
                   <span

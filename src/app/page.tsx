@@ -12,10 +12,12 @@ import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { IntroLoader } from "@/components/IntroLoader";
 
 export default function Home() {
   return (
     <>
+      <IntroLoader />
       <ScrollProgress />
       <Navbar />
       <main>
