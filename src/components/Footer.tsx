@@ -1,6 +1,6 @@
 "use client";
 
-import { Phone, Mail, MessageCircle, Heart } from "lucide-react";
+import { Phone, Mail, MessageCircle, Heart, Facebook } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Logo } from "./Logo";
 import { site, whatsappLink, mailLink, telLink } from "@/lib/site";
@@ -18,6 +18,12 @@ export function Footer() {
     { id: "contact", label: t.nav.contact },
   ];
 
+  const socialButtons = [
+    { label: "Facebook", icon: Facebook, href: site.facebook },
+    { label: "WhatsApp", icon: MessageCircle, href: whatsappLink(t.contact.whatsappMsg) },
+    { label: "Email", icon: Mail, href: mailLink },
+  ];
+
   return (
     <footer className="relative border-t border-white/10 bg-nexa-950/60">
       <div className="container-nexa py-14">
@@ -28,6 +34,20 @@ export function Footer() {
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-silver/55">
               {t.footer.desc}
             </p>
+            <div className="mt-6 flex items-center gap-3">
+              {socialButtons.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-silver-light transition-colors hover:border-brand-400/50 hover:bg-brand-500/15 hover:text-brand-200"
+                >
+                  <s.icon className="h-5 w-5" />
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Quick links */}

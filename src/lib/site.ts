@@ -15,6 +15,7 @@ export const site = {
   // WhatsApp (international format without "+" for wa.me links)
   whatsapp: "01068221068",
   whatsappIntl: "201068221068",
+  facebook: "https://www.facebook.com/61567643876045",
   url: "https://nexadigital.example.com",
   location: {
     en: "Egypt",
@@ -37,4 +38,5 @@ export const socials = {
   whatsapp: whatsappLink(),
   email: mailLink,
   phone: telLink,
+  facebook: site.facebook,
 } as const;
