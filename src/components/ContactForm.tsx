@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { Send, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { whatsappLink } from "@/lib/site";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -12,42 +13,68 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
 
-  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
 
     const payload = {
-      name: String(data.get("name") || ""),
-      phone: String(data.get("phone") || ""),
-      email: String(data.get("email") || ""),
-      service: String(data.get("service") || ""),
-      message: String(data.get("message") || ""),
+      name: String(data.get("name") || "").trim(),
+      phone: String(data.get("phone") || "").trim(),
+      email: String(data.get("email") || "").trim(),
+      service: String(data.get("service") || "").trim(),
+      message: String(data.get("message") || "").trim(),
       company: String(data.get("company") || ""), // honeypot
       locale,
     };
 
-    if (!payload.name.trim() || !payload.message.trim() || !payload.phone.trim()) {
+    if (!payload.name || !payload.message || !payload.phone) {
       setStatus("error");
       setErrorMsg(f.validation);
       return;
     }
 
-    setStatus("loading");
+    // Build a tidy WhatsApp message and open the chat (primary delivery).
+    const L =
+      locale === "ar"
+        ? {
+            greet: "رسالة جديدة من موقع نكسا ديجيتال",
+            name: "الاسم",
+            phone: "الموبايل",
+            email: "الإيميل",
+            service: "الخدمة",
+            msg: "الرسالة",
+          }
+        : {
+            greet: "New message from the Nexa Digital website",
+            name: "Name",
+            phone: "Phone",
+            email: "Email",
+            service: "Service",
+            msg: "Message",
+          };
+
+    const lines = [
+      `*${L.greet}*`,
+      `${L.name}: ${payload.name}`,
+      `${L.phone}: ${payload.phone}`,
+      payload.email ? `${L.email}: ${payload.email}` : null,
+      payload.service ? `${L.service}: ${payload.service}` : null,
+      `${L.msg}: ${payload.message}`,
+    ].filter(Boolean) as string[];
+
+    window.open(whatsappLink(lines.join("\n")), "_blank", "noopener,noreferrer");
+
+    // Best-effort: also store the lead if a database is configured.
+    fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).catch(() => {});
+
+    setStatus("success");
     setErrorMsg("");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error("request failed");
-      setStatus("success");
-      form.reset();
-    } catch {
-      setStatus("error");
-      setErrorMsg(f.error);
-    }
+    form.reset();
   }
 
   if (status === "success") {
@@ -173,22 +200,9 @@ export function ContactForm() {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={status === "loading"}
-        className="btn-primary mt-6 w-full disabled:cursor-not-allowed disabled:opacity-70"
-      >
-        {status === "loading" ? (
-          <>
-            <Loader2 className="h-4 w-4 animate-spin" />
-            {f.sending}
-          </>
-        ) : (
-          <>
-            <Send className="h-4 w-4" />
-            {f.submit}
-          </>
-        )}
+      <button type="submit" className="btn-primary mt-6 w-full">
+        <Send className="h-4 w-4" />
+        {f.submit}
       </button>
     </form>
   );
