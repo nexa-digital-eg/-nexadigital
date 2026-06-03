@@ -1,10 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { site } from "@/lib/site";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-/** The "ND" monogram, inspired by the Nexa Digital logo. */
-export function LogoMark({ className = "h-10 w-10" }: { className?: string }) {
+/** Inline SVG fallback (used until the real logo image is uploaded). */
+export function LogoMarkSVG({ className = "h-10 w-10" }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 64 64"
@@ -51,6 +52,29 @@ export function LogoMark({ className = "h-10 w-10" }: { className?: string }) {
         fill="none"
       />
     </svg>
+  );
+}
+
+/**
+ * The "ND" monogram.
+ * Prefers the uploaded image at /logo-mark.png and gracefully falls back to
+ * the inline SVG if that file is missing (e.g. before it's uploaded).
+ */
+export function LogoMark({ className = "h-10 w-10" }: { className?: string }) {
+  const [imgFailed, setImgFailed] = useState(false);
+
+  if (imgFailed) return <LogoMarkSVG className={className} />;
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/logo-mark.png"
+      alt="Nexa Digital"
+      className={`${className} object-contain`}
+      loading="eager"
+      decoding="async"
+      onError={() => setImgFailed(true)}
+    />
   );
 }
 

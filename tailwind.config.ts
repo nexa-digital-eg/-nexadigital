@@ -40,8 +40,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-cairo)", "var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-space-grotesk)", "var(--font-cairo)", "sans-serif"],
+        // Latin glyphs render in Outfit/Sora; Arabic falls back to Cairo per-glyph.
+        sans: ["var(--font-outfit)", "var(--font-cairo)", "system-ui", "sans-serif"],
+        display: ["var(--font-sora)", "var(--font-cairo)", "sans-serif"],
       },
       backgroundImage: {
         "brand-gradient": "linear-gradient(135deg, #2e9bff 0%, #38bdf8 100%)",

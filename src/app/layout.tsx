@@ -1,24 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Cairo, Inter, Space_Grotesk } from "next/font/google";
+import { Cairo, Outfit, Sora } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import { site } from "@/lib/site";
 
+// Arabic (and Latin fallback) — handles RTL content.
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
   variable: "--font-cairo",
   display: "swap",
 });
 
-const inter = Inter({
+// Body text (Latin) — clean, premium, modern.
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-outfit",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+// Display / headings (Latin) — premium modern.
+const sora = Sora({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-sora",
   display: "swap",
 });
 
@@ -83,7 +86,7 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
       <body
-        className={`${cairo.variable} ${inter.variable} ${spaceGrotesk.variable} font-sans`}
+        className={`${cairo.variable} ${outfit.variable} ${sora.variable} font-sans`}
       >
         <LanguageProvider>{children}</LanguageProvider>
       </body>

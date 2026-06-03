@@ -62,6 +62,23 @@
     @apply bg-brand-gradient bg-clip-text text-transparent;
   }
 
+  /* Animated, flowing gradient text for hero headlines */
+  .gradient-text-animate {
+    background: linear-gradient(
+      100deg,
+      #2e9bff 0%,
+      #38bdf8 25%,
+      #7ebcff 50%,
+      #38bdf8 75%,
+      #2e9bff 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 6s linear infinite;
+  }
+
   .silver-text {
     @apply bg-silver-gradient bg-clip-text text-transparent;
   }
@@ -79,7 +96,23 @@
   }
 
   .btn-primary {
-    @apply btn bg-brand-gradient text-white shadow-glow hover:shadow-glow-lg hover:brightness-110 active:scale-[0.98];
+    @apply btn relative overflow-hidden bg-brand-gradient text-white shadow-glow hover:shadow-glow-lg hover:brightness-110 active:scale-[0.98];
+  }
+
+  /* Sweeping shine on primary buttons */
+  .btn-primary::before {
+    content: "";
+    @apply pointer-events-none absolute inset-0 -translate-x-full;
+    background: linear-gradient(
+      110deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.45) 50%,
+      transparent 70%
+    );
+    transition: transform 0.7s ease;
+  }
+  .btn-primary:hover::before {
+    @apply translate-x-full;
   }
 
   .btn-ghost {
