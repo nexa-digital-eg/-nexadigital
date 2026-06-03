@@ -20,7 +20,7 @@ export function Process() {
           <h2 className="mt-5 font-display text-3xl font-bold sm:text-4xl lg:text-5xl text-balance">
             {t.process.title}
           </h2>
-          <p className="mt-4 text-silver/65 sm:text-lg">{t.process.subtitle}</p>
+          <p className="mt-4 text-silver/82 sm:text-lg">{t.process.subtitle}</p>
         </Reveal>
 
         <div className="relative mt-16">
@@ -42,7 +42,7 @@ export function Process() {
                     <h3 className="mt-5 font-display text-lg font-bold text-white">
                       {step.title}
                     </h3>
-                    <p className="mt-2 text-sm text-silver/60">{step.desc}</p>
+                    <p className="mt-2 text-sm text-silver/78">{step.desc}</p>
                   </div>
                 </Reveal>
               );

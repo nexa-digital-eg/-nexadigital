@@ -52,7 +52,7 @@ export function FAQ() {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                       >
-                        <p className="px-5 pb-5 text-sm leading-relaxed text-silver/65">
+                        <p className="px-5 pb-5 text-sm leading-relaxed text-silver/82">
                           {item.a}
                         </p>
                       </motion.div>

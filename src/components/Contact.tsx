@@ -49,11 +49,11 @@ export function Contact() {
               <h2 className="mt-5 font-display text-3xl font-bold sm:text-4xl text-balance">
                 {t.contact.title}
               </h2>
-              <p className="mt-5 leading-relaxed text-silver/70 sm:text-lg">
+              <p className="mt-5 leading-relaxed text-silver/85 sm:text-lg">
                 {t.contact.subtitle}
               </p>
 
-              <div className="mt-4 flex items-center gap-2 text-sm text-silver/60">
+              <div className="mt-4 flex items-center gap-2 text-sm text-silver/78">
                 <MapPin className="h-4 w-4 text-brand-300" />
                 {locale === "ar" ? site.location.ar : site.location.en}
               </div>
@@ -82,7 +82,7 @@ export function Contact() {
                         </span>
                         <span
                           dir="ltr"
-                          className="block truncate text-sm text-silver/70 group-hover:text-silver-light"
+                          className="block truncate text-sm text-silver/85 group-hover:text-silver-light"
                         >
                           {channel.value}
                         </span>

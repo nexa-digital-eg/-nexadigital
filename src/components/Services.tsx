@@ -32,7 +32,7 @@ export function Services() {
           <h2 className="mt-5 font-display text-3xl font-bold sm:text-4xl lg:text-5xl text-balance">
             {t.services.title}
           </h2>
-          <p className="mt-4 text-silver/65 sm:text-lg">{t.services.subtitle}</p>
+          <p className="mt-4 text-silver/82 sm:text-lg">{t.services.subtitle}</p>
         </Reveal>
 
         <StaggerGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -57,7 +57,7 @@ export function Services() {
                 <p className="mt-1 text-sm font-semibold gradient-text">
                   {service.slogan}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-silver/65">
+                <p className="mt-3 text-sm leading-relaxed text-silver/82">
                   {service.desc}
                 </p>
 

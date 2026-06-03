@@ -29,7 +29,7 @@ export function About() {
                 {["Web", "AI", "Systems", "Automation"].map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-xl border border-white/10 bg-white/[0.03] py-2 text-center text-xs font-semibold text-silver/70"
+                    className="rounded-xl border border-white/10 bg-white/[0.03] py-2 text-center text-xs font-semibold text-silver/85"
                   >
                     {tag}
                   </span>
@@ -46,7 +46,7 @@ export function About() {
             <h2 className="mt-5 font-display text-3xl font-bold sm:text-4xl lg:text-5xl text-balance">
               {t.about.title}
             </h2>
-            <p className="mt-5 leading-relaxed text-silver/70 sm:text-lg">
+            <p className="mt-5 leading-relaxed text-silver/85 sm:text-lg">
               {t.about.desc}
             </p>
           </Reveal>
@@ -62,7 +62,7 @@ export function About() {
                     </span>
                     <div>
                       <h3 className="font-semibold text-white">{point.title}</h3>
-                      <p className="mt-1 text-sm text-silver/60">{point.desc}</p>
+                      <p className="mt-1 text-sm text-silver/78">{point.desc}</p>
                     </div>
                   </div>
                 </Reveal>

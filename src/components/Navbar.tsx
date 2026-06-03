@@ -57,7 +57,7 @@ export function Navbar() {
             <li key={link.id}>
               <a
                 href={`#${link.id}`}
-                className="rounded-full px-4 py-2 text-sm font-medium text-silver/80 transition-colors hover:bg-white/5 hover:text-white"
+                className="rounded-full px-4 py-2 text-sm font-medium text-silver/90 transition-colors hover:bg-white/5 hover:text-white"
               >
                 {link.label}
               </a>

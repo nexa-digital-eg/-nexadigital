@@ -40,7 +40,7 @@ export function Footer() {
                 <li key={link.id}>
                   <a
                     href={`#${link.id}`}
-                    className="text-sm text-silver/60 transition-colors hover:text-brand-300"
+                    className="text-sm text-silver/78 transition-colors hover:text-brand-300"
                   >
                     {link.label}
                   </a>
@@ -59,7 +59,7 @@ export function Footer() {
                 <li key={service.key}>
                   <a
                     href="#services"
-                    className="text-sm text-silver/60 transition-colors hover:text-brand-300"
+                    className="text-sm text-silver/78 transition-colors hover:text-brand-300"
                   >
                     {service.title}
                   </a>
@@ -79,7 +79,7 @@ export function Footer() {
                   href={whatsappLink(t.contact.whatsappMsg)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-sm text-silver/60 transition-colors hover:text-brand-300"
+                  className="flex items-center gap-3 text-sm text-silver/78 transition-colors hover:text-brand-300"
                 >
                   <MessageCircle className="h-4 w-4 text-brand-300" />
                   <span dir="ltr">{site.whatsapp}</span>
@@ -88,7 +88,7 @@ export function Footer() {
               <li>
                 <a
                   href={telLink}
-                  className="flex items-center gap-3 text-sm text-silver/60 transition-colors hover:text-brand-300"
+                  className="flex items-center gap-3 text-sm text-silver/78 transition-colors hover:text-brand-300"
                 >
                   <Phone className="h-4 w-4 text-brand-300" />
                   <span dir="ltr">{site.phone}</span>
@@ -97,7 +97,7 @@ export function Footer() {
               <li>
                 <a
                   href={mailLink}
-                  className="flex items-center gap-3 text-sm text-silver/60 transition-colors hover:text-brand-300"
+                  className="flex items-center gap-3 text-sm text-silver/78 transition-colors hover:text-brand-300"
                 >
                   <Mail className="h-4 w-4 text-brand-300" />
                   <span dir="ltr">{site.email}</span>

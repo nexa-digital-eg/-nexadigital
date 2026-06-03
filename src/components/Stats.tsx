@@ -60,7 +60,7 @@ export function Stats() {
               <div className="font-display text-4xl font-extrabold gradient-text sm:text-5xl">
                 <Counter to={stat.value} suffix={stat.suffix} />
               </div>
-              <div className="mt-2 text-sm font-medium text-silver/65">
+              <div className="mt-2 text-sm font-medium text-silver/82">
                 {t.stats[stat.labelKey]}
               </div>
             </div>

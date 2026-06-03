@@ -11,6 +11,7 @@ import { ArrowLeft, ArrowRight, Sparkles, MessageCircle } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { whatsappLink } from "@/lib/site";
 import { GridGlow } from "./ui/Background";
+import { Particles } from "./Particles";
 
 // Service keywords that orbit around the logo
 const orbitChips = ["Websites", "Systems", "Automation", "AI", "CV"];
@@ -48,8 +49,9 @@ export function Hero() {
       className="relative flex min-h-[100svh] items-center overflow-hidden pt-24 pb-16"
     >
       <GridGlow />
+      <Particles className="-z-[5]" />
 
-      <div className="container-nexa grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+      <div className="container-nexa relative z-10 grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
         {/* Copy */}
         <div className="text-center lg:text-start">
           <motion.span
@@ -77,7 +79,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-silver/70 sm:text-lg lg:mx-0"
+            className="mx-auto mt-6 max-w-xl text-base font-medium leading-relaxed text-silver-light/90 sm:text-lg lg:mx-0"
           >
             {t.hero.subtitle}
           </motion.p>
@@ -114,7 +116,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.5 }}
-            className="mt-8 text-xs uppercase tracking-[0.18em] text-silver/40"
+            className="mt-8 text-xs font-medium uppercase tracking-[0.18em] text-silver/55"
           >
             {t.hero.trustedBy}
           </motion.p>

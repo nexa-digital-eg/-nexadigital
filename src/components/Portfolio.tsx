@@ -27,7 +27,7 @@ export function Portfolio() {
           <h2 className="mt-5 font-display text-3xl font-bold sm:text-4xl lg:text-5xl text-balance">
             {t.work.title}
           </h2>
-          <p className="mt-4 text-silver/65 sm:text-lg">{t.work.subtitle}</p>
+          <p className="mt-4 text-silver/82 sm:text-lg">{t.work.subtitle}</p>
         </Reveal>
 
         <StaggerGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -62,7 +62,7 @@ export function Portfolio() {
                 <h3 className="mt-2 font-display text-lg font-bold text-white">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm text-silver/60">{item.desc}</p>
+                <p className="mt-2 text-sm text-silver/78">{item.desc}</p>
                 <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-300 transition-colors group-hover:text-brand-200">
                   {t.work.viewProject}
                   <ArrowUpRight className="h-4 w-4" />
