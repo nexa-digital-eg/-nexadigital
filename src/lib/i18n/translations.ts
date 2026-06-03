@@ -1,0 +1,307 @@
+export type Locale = "ar" | "en";
+
+export const translations = {
+  ar: {
+    dir: "rtl",
+    nav: {
+      services: "خدماتنا",
+      about: "من نحن",
+      process: "كيف نعمل",
+      work: "أعمالنا",
+      faq: "الأسئلة الشائعة",
+      contact: "تواصل معنا",
+      cta: "اطلب عرض سعر",
+    },
+    hero: {
+      badge: "وكالة رقمية متكاملة",
+      titleA: "حلول ذكية،",
+      titleB: "مستقبل رقمي.",
+      subtitle:
+        "في نكسا ديجيتال نبني مواقع وأنظمة وحلول ذكاء اصطناعي وأتمتة تنقل أعمالك إلى المستوى التالي — بتصميم احترافي وأداء يبهر عملاءك.",
+      ctaPrimary: "ابدأ مشروعك الآن",
+      ctaSecondary: "تعرّف على خدماتنا",
+      trustedBy: "موثوق به من رواد الأعمال والشركات الناشئة",
+    },
+    stats: {
+      projects: "مشروع منجز",
+      clients: "عميل سعيد",
+      experience: "سنوات خبرة",
+      support: "دعم فني",
+    },
+    services: {
+      eyebrow: "خدماتنا",
+      title: "كل ما تحتاجه أعمالك في مكان واحد",
+      subtitle:
+        "من الفكرة إلى الإطلاق، نقدّم باقة متكاملة من الخدمات الرقمية المصمّمة لتنمو معك.",
+      items: [
+        {
+          key: "websites",
+          title: "تصميم المواقع",
+          slogan: "عصرية. سريعة. متجاوبة.",
+          desc: "مواقع وتطبيقات ويب حديثة بتصميم يجذب العملاء وأداء فائق السرعة على كل الأجهزة.",
+          features: ["تصميم متجاوب 100%", "تحسين محركات البحث SEO", "سرعة تحميل عالية"],
+        },
+        {
+          key: "systems",
+          title: "الأنظمة والبرمجيات",
+          slogan: "قوية. قابلة للتوسّع. آمنة.",
+          desc: "أنظمة إدارة وحلول برمجية مخصّصة تأتمت عملياتك وتدير أعمالك باحترافية وأمان.",
+          features: ["أنظمة إدارة مخصّصة", "لوحات تحكم ذكية", "حماية وأمان عالي"],
+        },
+        {
+          key: "automation",
+          title: "الأتمتة",
+          slogan: "بسّط. حسّن. انمُ.",
+          desc: "نأتمت مهامك المتكرّرة ونربط أدواتك معًا لتوفّر الوقت وتركّز على نمو أعمالك.",
+          features: ["ربط الأدوات والـ APIs", "سير عمل تلقائي", "توفير الوقت والتكلفة"],
+        },
+        {
+          key: "ai",
+          title: "حلول الذكاء الاصطناعي",
+          slogan: "ذكية. مبتكرة. مؤثّرة.",
+          desc: "روبوتات محادثة ومساعدين أذكياء وحلول AI مخصّصة ترفع كفاءة عملك وتجربة عملائك.",
+          features: ["شات بوت ذكي", "تحليل البيانات", "حلول AI مخصّصة"],
+        },
+        {
+          key: "cv",
+          title: "السيرة الذاتية و LinkedIn",
+          slogan: "احترافية. مُحسّنة. متميّزة.",
+          desc: "سيرة ذاتية احترافية وملف LinkedIn مُحسّن يبرز خبراتك ويفتح لك أبواب الفرص.",
+          features: ["تصميم CV احترافي", "تحسين ملف LinkedIn", "اجتياز أنظمة ATS"],
+        },
+      ],
+    },
+    about: {
+      eyebrow: "من نحن",
+      title: "شريكك الرقمي نحو النمو",
+      desc: "نكسا ديجيتال فريق من المطوّرين والمصمّمين والخبراء الرقميين، نؤمن أن التقنية يجب أن تخدم أهدافك التجارية. نمزج الإبداع بالهندسة الدقيقة لنقدّم حلولًا لا تبدو رائعة فحسب، بل تحقّق نتائج حقيقية.",
+      points: [
+        { title: "جودة بلا تنازلات", desc: "نهتم بأدق التفاصيل في كل مشروع نسلّمه." },
+        { title: "تسليم في الموعد", desc: "نلتزم بالجداول الزمنية ونحترم وقتك." },
+        { title: "تقنيات حديثة", desc: "نستخدم أحدث الأدوات والممارسات العالمية." },
+        { title: "دعم متواصل", desc: "نرافقك بعد الإطلاق ولا نتركك وحدك." },
+      ],
+    },
+    process: {
+      eyebrow: "كيف نعمل",
+      title: "رحلة من الفكرة إلى الإطلاق",
+      subtitle: "منهجية واضحة تضمن مشروعًا ناجحًا في كل خطوة.",
+      steps: [
+        { title: "الاكتشاف", desc: "نفهم أهدافك ومتطلباتك وجمهورك بدقة." },
+        { title: "التصميم", desc: "نصمّم تجربة وواجهة تعكس هويتك وتبهر عملاءك." },
+        { title: "التطوير", desc: "نحوّل التصميم إلى منتج حقيقي بأعلى معايير الجودة." },
+        { title: "الإطلاق والدعم", desc: "نطلق مشروعك ونرافقك بالدعم والتطوير المستمر." },
+      ],
+    },
+    work: {
+      eyebrow: "أعمالنا",
+      title: "مشاريع نفخر بها",
+      subtitle: "نماذج من الحلول الرقمية التي صمّمناها لعملائنا.",
+      viewProject: "عرض المشروع",
+      items: [
+        { title: "متجر إلكتروني متكامل", category: "تطوير مواقع", desc: "منصة تجارة إلكترونية بأداء عالٍ وتجربة شراء سلسة." },
+        { title: "نظام إدارة عيادات", category: "أنظمة وبرمجيات", desc: "نظام شامل لإدارة المواعيد والمرضى والفواتير." },
+        { title: "مساعد ذكاء اصطناعي", category: "حلول AI", desc: "شات بوت ذكي للرد على عملاء شركة خدمات." },
+        { title: "أتمتة التسويق", category: "أتمتة", desc: "ربط أدوات التسويق وأتمتة الحملات بالكامل." },
+        { title: "موقع شركة عقارية", category: "تطوير مواقع", desc: "موقع عرض عقارات بتصميم فاخر وبحث متقدّم." },
+        { title: "لوحة تحليلات بيانات", category: "أنظمة وبرمجيات", desc: "لوحة تحكم تفاعلية لعرض مؤشرات الأداء." },
+      ],
+    },
+    testimonials: {
+      eyebrow: "آراء العملاء",
+      title: "ماذا يقول عملاؤنا",
+      items: [
+        { name: "أحمد محمود", role: "مؤسس متجر إلكتروني", quote: "فريق نكسا حوّل فكرتي لموقع احترافي زادت مبيعاتي بنسبة كبيرة. التعامل راقٍ والتسليم في الموعد." },
+        { name: "سارة عبدالله", role: "مديرة تسويق", quote: "الأتمتة اللي عملوها وفّرت علينا ساعات شغل يوميًا. احترافية حقيقية ونتائج ملموسة." },
+        { name: "محمد علي", role: "صاحب شركة خدمات", quote: "الشات بوت الذكي بيرد على عملائي 24 ساعة. خدمة ممتازة ودعم متواصل بعد التسليم." },
+      ],
+    },
+    faq: {
+      eyebrow: "الأسئلة الشائعة",
+      title: "أسئلة قد تدور في ذهنك",
+      items: [
+        { q: "كم يستغرق تنفيذ المشروع؟", a: "يعتمد على حجم المشروع، لكن معظم المواقع تستغرق من أسبوع إلى ثلاثة أسابيع. نحدّد لك جدولًا زمنيًا واضحًا قبل البدء." },
+        { q: "هل تقدّمون دعمًا بعد التسليم؟", a: "نعم، نوفّر دعمًا فنيًا وصيانة بعد الإطلاق لضمان عمل مشروعك بسلاسة." },
+        { q: "ما تكلفة الخدمات؟", a: "تختلف حسب احتياجك. تواصل معنا للحصول على عرض سعر مجاني ومخصّص لمشروعك." },
+        { q: "هل تعملون مع عملاء خارج مصر؟", a: "بالتأكيد، نعمل مع عملاء في جميع أنحاء العالم عن بُعد ونتواصل بسهولة." },
+        { q: "هل أملك حقوق المشروع بالكامل؟", a: "نعم، بعد التسليم تكون كل ملفات وحقوق المشروع ملكك بالكامل." },
+      ],
+    },
+    contact: {
+      eyebrow: "تواصل معنا",
+      title: "جاهزون لبدء مشروعك القادم",
+      subtitle:
+        "تواصل معنا الآن واحصل على استشارة وعرض سعر مجاني. فريقنا جاهز للرد عليك بسرعة.",
+      whatsapp: "راسلنا على واتساب",
+      call: "اتصل بنا",
+      email: "أرسل إيميل",
+      whatsappMsg: "مرحبًا نكسا ديجيتال، أرغب في الاستفسار عن خدماتكم.",
+      formNote: "نرد عادةً خلال أقل من ساعة في أوقات العمل.",
+    },
+    footer: {
+      desc: "وكالة رقمية متكاملة نبني مواقع وأنظمة وحلول ذكاء اصطناعي وأتمتة تنمّي أعمالك.",
+      quickLinks: "روابط سريعة",
+      ourServices: "خدماتنا",
+      contactInfo: "بيانات التواصل",
+      rights: "جميع الحقوق محفوظة.",
+      madeWith: "صُنع بشغف في",
+    },
+    common: {
+      language: "English",
+      menu: "القائمة",
+    },
+  },
+
+  en: {
+    dir: "ltr",
+    nav: {
+      services: "Services",
+      about: "About",
+      process: "Process",
+      work: "Work",
+      faq: "FAQ",
+      contact: "Contact",
+      cta: "Get a Quote",
+    },
+    hero: {
+      badge: "Full-Service Digital Agency",
+      titleA: "Smart Solutions,",
+      titleB: "Digital Future.",
+      subtitle:
+        "At Nexa Digital we build websites, systems, AI solutions, and automation that take your business to the next level — with professional design and performance that wows your clients.",
+      ctaPrimary: "Start Your Project",
+      ctaSecondary: "Explore Services",
+      trustedBy: "Trusted by founders and growing businesses",
+    },
+    stats: {
+      projects: "Projects Delivered",
+      clients: "Happy Clients",
+      experience: "Years Experience",
+      support: "Support",
+    },
+    services: {
+      eyebrow: "Our Services",
+      title: "Everything your business needs in one place",
+      subtitle:
+        "From idea to launch, we deliver a complete suite of digital services built to grow with you.",
+      items: [
+        {
+          key: "websites",
+          title: "Websites",
+          slogan: "Modern. Fast. Responsive.",
+          desc: "Modern websites and web apps with stunning design and blazing-fast performance on every device.",
+          features: ["100% Responsive", "SEO Optimized", "Lightning Fast"],
+        },
+        {
+          key: "systems",
+          title: "Systems",
+          slogan: "Powerful. Scalable. Secure.",
+          desc: "Custom management systems and software solutions that automate your operations securely and professionally.",
+          features: ["Custom Systems", "Smart Dashboards", "High Security"],
+        },
+        {
+          key: "automation",
+          title: "Automation",
+          slogan: "Streamline. Optimize. Grow.",
+          desc: "We automate repetitive tasks and connect your tools so you save time and focus on growth.",
+          features: ["API Integrations", "Automated Workflows", "Save Time & Cost"],
+        },
+        {
+          key: "ai",
+          title: "AI Solutions",
+          slogan: "Intelligent. Innovative. Impactful.",
+          desc: "Chatbots, smart assistants, and custom AI solutions that boost efficiency and customer experience.",
+          features: ["Smart Chatbots", "Data Analysis", "Custom AI"],
+        },
+        {
+          key: "cv",
+          title: "CV & LinkedIn",
+          slogan: "Professional. Optimized. Stand Out.",
+          desc: "A professional CV and an optimized LinkedIn profile that highlight your expertise and open doors.",
+          features: ["Professional CV", "LinkedIn Optimization", "ATS-Friendly"],
+        },
+      ],
+    },
+    about: {
+      eyebrow: "About Us",
+      title: "Your digital partner for growth",
+      desc: "Nexa Digital is a team of developers, designers, and digital experts. We believe technology should serve your business goals. We blend creativity with precise engineering to deliver solutions that not only look great but drive real results.",
+      points: [
+        { title: "Uncompromising Quality", desc: "We care about every detail in every project we ship." },
+        { title: "On-Time Delivery", desc: "We stick to timelines and respect your time." },
+        { title: "Modern Tech", desc: "We use the latest tools and global best practices." },
+        { title: "Continuous Support", desc: "We stay with you after launch — you're never alone." },
+      ],
+    },
+    process: {
+      eyebrow: "Our Process",
+      title: "From idea to launch",
+      subtitle: "A clear methodology that ensures a successful project at every step.",
+      steps: [
+        { title: "Discovery", desc: "We understand your goals, requirements, and audience." },
+        { title: "Design", desc: "We craft an experience and UI that reflect your brand." },
+        { title: "Development", desc: "We turn designs into a real product with top quality." },
+        { title: "Launch & Support", desc: "We launch your project and support its growth." },
+      ],
+    },
+    work: {
+      eyebrow: "Our Work",
+      title: "Projects we're proud of",
+      subtitle: "A glimpse of the digital solutions we've crafted for our clients.",
+      viewProject: "View Project",
+      items: [
+        { title: "Full E-Commerce Store", category: "Web Development", desc: "A high-performance e-commerce platform with a smooth buying experience." },
+        { title: "Clinic Management System", category: "Systems & Software", desc: "A complete system for appointments, patients, and billing." },
+        { title: "AI Assistant", category: "AI Solutions", desc: "A smart chatbot answering customers for a services company." },
+        { title: "Marketing Automation", category: "Automation", desc: "Connecting marketing tools and fully automating campaigns." },
+        { title: "Real Estate Website", category: "Web Development", desc: "A luxury property showcase with advanced search." },
+        { title: "Analytics Dashboard", category: "Systems & Software", desc: "An interactive dashboard for key performance indicators." },
+      ],
+    },
+    testimonials: {
+      eyebrow: "Testimonials",
+      title: "What our clients say",
+      items: [
+        { name: "Ahmed Mahmoud", role: "E-Commerce Founder", quote: "Nexa turned my idea into a professional site that significantly boosted my sales. Classy service and on-time delivery." },
+        { name: "Sara Abdullah", role: "Marketing Manager", quote: "The automation they built saves us hours every day. True professionalism and tangible results." },
+        { name: "Mohamed Ali", role: "Services Business Owner", quote: "The smart chatbot answers my clients 24/7. Excellent service and continuous support after delivery." },
+      ],
+    },
+    faq: {
+      eyebrow: "FAQ",
+      title: "Questions you might have",
+      items: [
+        { q: "How long does a project take?", a: "It depends on the scope, but most websites take one to three weeks. We give you a clear timeline before we start." },
+        { q: "Do you offer post-launch support?", a: "Yes, we provide technical support and maintenance after launch to keep your project running smoothly." },
+        { q: "How much do your services cost?", a: "It varies by your needs. Contact us for a free, tailored quote for your project." },
+        { q: "Do you work with clients outside Egypt?", a: "Absolutely. We work with clients worldwide, remotely and seamlessly." },
+        { q: "Do I fully own the project?", a: "Yes. After delivery, all project files and rights are fully yours." },
+      ],
+    },
+    contact: {
+      eyebrow: "Contact Us",
+      title: "Ready to start your next project",
+      subtitle:
+        "Reach out now for a free consultation and quote. Our team is ready to respond quickly.",
+      whatsapp: "Message on WhatsApp",
+      call: "Call Us",
+      email: "Send Email",
+      whatsappMsg: "Hello Nexa Digital, I'd like to ask about your services.",
+      formNote: "We usually reply within an hour during business hours.",
+    },
+    footer: {
+      desc: "A full-service digital agency building websites, systems, AI solutions, and automation that grow your business.",
+      quickLinks: "Quick Links",
+      ourServices: "Our Services",
+      contactInfo: "Contact Info",
+      rights: "All rights reserved.",
+      madeWith: "Crafted with passion in",
+    },
+    common: {
+      language: "العربية",
+      menu: "Menu",
+    },
+  },
+};
+
+export type Dictionary = (typeof translations)["ar"];
