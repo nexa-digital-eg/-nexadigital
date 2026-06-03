@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { ShieldCheck, Clock, Cpu, Headset, type LucideIcon } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Reveal } from "./ui/Reveal";
@@ -16,21 +17,44 @@ export function About() {
         <Reveal from="right" className="order-2 lg:order-1">
           <div className="relative mx-auto aspect-square w-full max-w-md">
             <div className="absolute inset-0 rounded-[2rem] bg-brand-gradient opacity-20 blur-2xl" />
-            <div className="glass-card relative flex h-full flex-col items-center justify-center gap-6 p-10">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo-lockup.png"
-                alt="Nexa Digital"
-                className="animate-float w-full max-w-xs object-contain"
-                loading="lazy"
-                decoding="async"
-              />
+            <div className="glass-card relative flex h-full flex-col items-center justify-center gap-6 p-8 sm:p-10">
+              {/* monogram app-icon tile */}
+              <motion.div
+                className="rounded-[1.6rem] bg-gradient-to-br from-brand-400/70 via-brand-500/30 to-cyan-400/40 p-[2px] shadow-glow-lg"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <div className="overflow-hidden rounded-[1.5rem]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/icon-512.png"
+                    alt="Nexa Digital"
+                    className="h-28 w-28 object-cover sm:h-32 sm:w-32"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </motion.div>
+
+              {/* wordmark */}
+              <div className="text-center">
+                <p className="font-display text-2xl font-bold tracking-wide">
+                  <span className="gradient-text">NEXA</span>{" "}
+                  <span className="silver-text">DIGITAL</span>
+                </p>
+                <p className="mt-2 text-[11px] uppercase tracking-[0.25em] text-silver/55">
+                  Smart Solutions. Digital Future.
+                </p>
+              </div>
+
+              {/* feature tags */}
               <div className="grid w-full grid-cols-2 gap-3">
                 {["Web", "AI", "Systems", "Automation"].map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-xl border border-white/10 bg-white/[0.03] py-2 text-center text-xs font-semibold text-silver/85"
+                    className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] py-2.5 text-center text-xs font-semibold text-silver-light"
                   >
+                    <span className="h-1.5 w-1.5 rounded-full bg-brand-400" />
                     {tag}
                   </span>
                 ))}
