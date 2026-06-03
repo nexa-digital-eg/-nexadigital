@@ -6,58 +6,22 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
-  type MotionValue,
 } from "framer-motion";
 import { ArrowLeft, ArrowRight, Sparkles, MessageCircle } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { whatsappLink } from "@/lib/site";
-import { LogoMark } from "./Logo";
 import { GridGlow } from "./ui/Background";
 
-const floatingChips = [
-  { label: "Websites", x: "top-8 left-0", delay: 0, depth: 22 },
-  { label: "AI", x: "top-1/3 -right-2", delay: 0.6, depth: 30 },
-  { label: "Automation", x: "bottom-10 left-4", delay: 1.2, depth: 26 },
-  { label: "Systems", x: "bottom-1/3 -right-4", delay: 1.8, depth: 18 },
-];
-
-function Chip({
-  chip,
-  mx,
-  my,
-}: {
-  chip: (typeof floatingChips)[number];
-  mx: MotionValue<number>;
-  my: MotionValue<number>;
-}) {
-  const x = useTransform(mx, [-0.5, 0.5], [-chip.depth, chip.depth]);
-  const y = useTransform(my, [-0.5, 0.5], [-chip.depth, chip.depth]);
-  return (
-    <motion.span
-      style={{ x, y }}
-      className={`absolute ${chip.x} z-10`}
-    >
-      <motion.span
-        className="block glass rounded-full px-3 py-1.5 text-xs font-semibold text-brand-200 shadow-glow"
-        animate={{ y: [0, -10, 0] }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          delay: chip.delay,
-          ease: "easeInOut",
-        }}
-      >
-        {chip.label}
-      </motion.span>
-    </motion.span>
-  );
-}
+// Service keywords that orbit around the logo
+const orbitChips = ["Websites", "Systems", "Automation", "AI", "CV"];
+const ORBIT_RADIUS = 172; // px, relative to the fixed-size visual
+const ORBIT_DURATION = 22; // seconds per revolution
 
 export function Hero() {
   const { t, locale } = useLanguage();
   const Arrow = locale === "ar" ? ArrowLeft : ArrowRight;
 
-  // Mouse-based parallax for the hero visual
+  // Mouse-based parallax tilt for the hero visual
   const ref = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -163,46 +127,83 @@ export function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           style={{ rotateX, rotateY, transformPerspective: 1000 }}
-          className="relative mx-auto hidden aspect-square w-full max-w-md lg:block [transform-style:preserve-3d]"
+          className="relative mx-auto hidden aspect-square w-full max-w-[420px] lg:block [transform-style:preserve-3d]"
         >
-          {/* rotating rings */}
-          <div className="absolute inset-0 rounded-full border border-brand-400/20" />
-          <div className="absolute inset-8 rounded-full border border-brand-400/10" />
+          {/* orbit path rings */}
+          <div className="absolute inset-0 rounded-full border border-white/10" />
+          <div className="absolute inset-[14%] rounded-full border border-white/[0.06]" />
+
+          {/* rotating conic accent */}
           <motion.div
             className="absolute inset-0 rounded-full"
             style={{
               background:
-                "conic-gradient(from 0deg, rgba(46,155,255,0.0), rgba(46,155,255,0.3), rgba(56,189,248,0.0))",
+                "conic-gradient(from 0deg, rgba(46,155,255,0), rgba(46,155,255,0.28), rgba(56,189,248,0))",
+              WebkitMask:
+                "radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px))",
+              mask: "radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px))",
             }}
             animate={{ rotate: 360 }}
-            transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-          />
-          <motion.div
-            className="absolute inset-12 rounded-full"
-            style={{
-              background:
-                "conic-gradient(from 180deg, rgba(56,189,248,0.0), rgba(126,188,255,0.22), rgba(46,155,255,0.0))",
-            }}
-            animate={{ rotate: -360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
           />
 
-          {/* center logo */}
+          {/* orbiting service chips */}
+          <motion.div
+            className="absolute inset-0"
+            animate={{ rotate: 360 }}
+            transition={{ duration: ORBIT_DURATION, repeat: Infinity, ease: "linear" }}
+          >
+            {orbitChips.map((label, i) => {
+              const angle = (360 / orbitChips.length) * i;
+              return (
+                <div
+                  key={label}
+                  className="absolute left-1/2 top-1/2"
+                  style={{ transform: `rotate(${angle}deg) translateX(${ORBIT_RADIUS}px)` }}
+                >
+                  <div style={{ transform: "translate(-50%, -50%)" }}>
+                    <motion.div
+                      animate={{ rotate: [-angle, -angle - 360] }}
+                      transition={{
+                        duration: ORBIT_DURATION,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    >
+                      <span className="block whitespace-nowrap rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-semibold text-brand-200 shadow-glow backdrop-blur-md">
+                        {label}
+                      </span>
+                    </motion.div>
+                  </div>
+                </div>
+              );
+            })}
+          </motion.div>
+
+          {/* center app-icon tile */}
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.div
-              className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 backdrop-blur-xl shadow-glow-lg"
-              animate={{ y: [0, -16, 0] }}
+              className="relative rounded-[1.9rem] bg-gradient-to-br from-brand-400/70 via-brand-500/30 to-cyan-400/40 p-[2px] shadow-glow-lg"
+              animate={{ y: [0, -12, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               style={{ z: 60 }}
             >
-              <LogoMark className="h-32 w-32" />
+              {/* glow halo */}
+              <div className="pointer-events-none absolute -inset-6 rounded-[2.4rem] bg-brand-500/20 blur-2xl" />
+              <div className="relative overflow-hidden rounded-[1.8rem]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/icon-512.png"
+                  alt="Nexa Digital"
+                  className="h-40 w-40 object-cover sm:h-44 sm:w-44"
+                  loading="eager"
+                  decoding="async"
+                />
+                {/* sheen */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/15" />
+              </div>
             </motion.div>
           </div>
-
-          {/* floating chips with mouse parallax */}
-          {floatingChips.map((chip) => (
-            <Chip key={chip.label} chip={chip} mx={smx} my={smy} />
-          ))}
         </motion.div>
       </div>
 
