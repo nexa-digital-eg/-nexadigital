@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-1.5-flash";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
