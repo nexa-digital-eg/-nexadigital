@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const MODEL = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+const MODEL = process.env.GROQ_MODEL || "allam-2-7b";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
@@ -32,6 +32,7 @@ YOUR JOB:
 
 STYLE RULES:
 - Reply in the SAME language the user writes in. If they write Egyptian Arabic, reply in friendly Egyptian Arabic.
+- When replying in Arabic, write using Arabic script ONLY. Never mix in Latin, Cyrillic, or any other script inside Arabic words (e.g. write "أتمتة" not "автоماتية", and "لينكدإن" not "لينكдان").
 - Be concise and warm. Keep answers short (2–5 sentences) unless more detail is clearly needed.
 - NEVER invent specific prices. Pricing depends on scope — offer a free quote via WhatsApp instead.
 - Only discuss Nexa Digital and its services. If asked something unrelated, gently steer back.
