@@ -1,10 +1,10 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { site } from "@/lib/site";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const MODEL = process.env.ANTHROPIC_MODEL || "claude-haiku-4-5";
+const MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
@@ -51,19 +51,14 @@ function sanitize(messages: unknown): ChatMessage[] {
         (m as ChatMessage).content.trim() !== ""
     )
     .map((m) => ({ role: m.role, content: m.content.slice(0, 4000) }))
-    .slice(-20); // keep the last 20 turns
+    .slice(-20);
 
-  // Anthropic requires the conversation to start with a user message.
   while (cleaned.length && cleaned[0].role === "assistant") cleaned.shift();
   return cleaned;
 }
 
 export async function POST(req: Request) {
-  // Works with Anthropic directly, or a compatible proxy/router (e.g. AgentRouter)
-  // via ANTHROPIC_BASE_URL + ANTHROPIC_AUTH_TOKEN.
-  const authToken = process.env.ANTHROPIC_AUTH_TOKEN;
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  const baseURL = process.env.ANTHROPIC_BASE_URL?.replace(/\/+$/, "");
+  const apiKey = process.env.GOOGLE_AI_API_KEY;
 
   let body: unknown;
   try {
@@ -77,8 +72,7 @@ export async function POST(req: Request) {
     return Response.json({ error: "no_message" }, { status: 422 });
   }
 
-  // Graceful fallback when the assistant isn't configured yet.
-  if (!authToken && !apiKey) {
+  if (!apiKey) {
     const text =
       `مرحبًا! المساعد الذكي لسه مش مفعّل. ` +
       `تواصل معانا مباشرة على واتساب ${site.whatsapp} وهنرد عليك فورًا. 🙌`;
@@ -87,42 +81,39 @@ export async function POST(req: Request) {
     });
   }
 
-  const client = new Anthropic({
-    ...(authToken ? { authToken } : { apiKey: apiKey! }),
-    ...(baseURL ? { baseURL } : {}),
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const model = genAI.getGenerativeModel({
+    model: MODEL,
+    systemInstruction: SYSTEM_PROMPT,
   });
 
-  const stream = client.messages.stream({
-    model: MODEL,
-    max_tokens: 1024,
-    system: SYSTEM_PROMPT,
-    messages: messages.map((m) => ({ role: m.role, content: m.content })),
-  });
+  // Convert history (all messages except the last user message)
+  const history = messages.slice(0, -1).map((m) => ({
+    role: m.role === "user" ? "user" : "model",
+    parts: [{ text: m.content }],
+  }));
+
+  const chat = model.startChat({ history });
+  const lastMessage = messages[messages.length - 1].content;
 
   const encoder = new TextEncoder();
   const readable = new ReadableStream<Uint8Array>({
     async start(controller) {
       try {
-        for await (const event of stream) {
-          if (
-            event.type === "content_block_delta" &&
-            event.delta.type === "text_delta"
-          ) {
-            controller.enqueue(encoder.encode(event.delta.text));
-          }
+        const result = await chat.sendMessageStream(lastMessage);
+        for await (const chunk of result.stream) {
+          const text = chunk.text();
+          if (text) controller.enqueue(encoder.encode(text));
         }
-      } catch (err) {
+      } catch (err: unknown) {
         let reason = "";
-        if (err instanceof Anthropic.AuthenticationError) {
-          reason = " — مشكلة في مفتاح API (غير صحيح)";
-        } else if (err instanceof Anthropic.PermissionDeniedError) {
-          reason = " — المفتاح مالوش صلاحية / مفيش رصيد";
-        } else if (err instanceof Anthropic.RateLimitError) {
-          reason = " — الطلبات كتير، حاول بعد شوية";
-        } else if (err instanceof Anthropic.NotFoundError) {
+        const msg = err instanceof Error ? err.message : String(err);
+        if (msg.includes("API_KEY_INVALID") || msg.includes("API key")) {
+          reason = " — مفتاح API غير صحيح";
+        } else if (msg.includes("RESOURCE_EXHAUSTED") || msg.includes("quota")) {
+          reason = " — تجاوزت الحد المسموح، حاول بعد شوية";
+        } else if (msg.includes("MODEL_NOT_FOUND")) {
           reason = " — اسم الموديل غير موجود";
-        } else if (err instanceof Anthropic.APIError) {
-          reason = ` — خطأ ${err.status ?? ""} ${err.name}`;
         }
         console.error("[chat] stream error:", err);
         controller.enqueue(
