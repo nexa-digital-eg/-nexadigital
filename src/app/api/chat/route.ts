@@ -113,30 +113,9 @@ export async function POST(req: Request) {
           if (text) controller.enqueue(encoder.encode(text));
         }
       } catch (err: unknown) {
-        let reason = "";
         const msg = err instanceof Error ? err.message : String(err);
         console.error("[chat] stream error | model:", MODEL, "| msg:", msg);
-        if (
-          msg.includes("API_KEY_INVALID") ||
-          msg.includes("API key") ||
-          msg.includes("API_KEY") ||
-          msg.includes("UNAUTHENTICATED") ||
-          msg.includes("401")
-        ) {
-          reason = " — مفتاح API غير صحيح";
-        } else if (
-          msg.includes("RESOURCE_EXHAUSTED") ||
-          msg.includes("quota") ||
-          msg.includes("429")
-        ) {
-          reason = " — تجاوزت الحد المسموح، حاول بعد شوية";
-        } else if (msg.includes("MODEL_NOT_FOUND") || msg.includes("404")) {
-          reason = " — اسم الموديل غير موجود";
-        } else if (msg.includes("PERMISSION_DENIED") || msg.includes("403")) {
-          reason = " — المفتاح مالوش صلاحية على الـ API";
-        } else if (msg.includes("fetch") || msg.includes("network") || msg.includes("ECONNREFUSED")) {
-          reason = " — مشكلة في الاتصال بالشبكة";
-        }
+        const reason = " — " + msg.slice(0, 200);
         controller.enqueue(
           encoder.encode(
             `\n\n⚠️ حصل خطأ${reason}. تواصل معانا على واتساب ${site.whatsapp}.`
