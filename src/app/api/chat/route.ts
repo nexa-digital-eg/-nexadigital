@@ -59,7 +59,13 @@ function sanitize(messages: unknown): ChatMessage[] {
 }
 
 export async function POST(req: Request) {
-  const apiKey = process.env.GOOGLE_AI_API_KEY;
+  const apiKey =
+    process.env.GOOGLE_AI_API_KEY ||
+    process.env.GEMINI_API_KEY ||
+    process.env.GOOGLE_API_KEY ||
+    process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+
+  console.log("[chat] key found:", !!apiKey, "| vars checked: GOOGLE_AI_API_KEY, GEMINI_API_KEY, GOOGLE_API_KEY, GOOGLE_GENERATIVE_AI_API_KEY");
 
   let body: unknown;
   try {
