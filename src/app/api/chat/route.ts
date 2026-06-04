@@ -5,7 +5,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const envModel = process.env.GEMINI_MODEL || "";
-const MODEL = envModel.startsWith("gemini") ? envModel : "gemini-1.5-flash";
+const MODEL = envModel.startsWith("gemini") ? envModel : "gemini-2.0-flash-lite";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
