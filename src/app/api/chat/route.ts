@@ -105,10 +105,22 @@ export async function POST(req: Request) {
           }
         }
       } catch (err) {
+        let reason = "";
+        if (err instanceof Anthropic.AuthenticationError) {
+          reason = " — مشكلة في مفتاح API (غير صحيح)";
+        } else if (err instanceof Anthropic.PermissionDeniedError) {
+          reason = " — المفتاح مالوش صلاحية / مفيش رصيد";
+        } else if (err instanceof Anthropic.RateLimitError) {
+          reason = " — الطلبات كتير، حاول بعد شوية";
+        } else if (err instanceof Anthropic.NotFoundError) {
+          reason = " — اسم الموديل غير موجود";
+        } else if (err instanceof Anthropic.APIError) {
+          reason = ` — خطأ ${err.status ?? ""} ${err.name}`;
+        }
         console.error("[chat] stream error:", err);
         controller.enqueue(
           encoder.encode(
-            "\n\n(حصل خطأ بسيط — تواصل معانا على واتساب " + site.whatsapp + ")"
+            `\n\n⚠️ حصل خطأ${reason}. تواصل معانا على واتساب ${site.whatsapp}.`
           )
         );
       } finally {
