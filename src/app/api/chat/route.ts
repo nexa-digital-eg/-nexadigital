@@ -59,7 +59,11 @@ function sanitize(messages: unknown): ChatMessage[] {
 }
 
 export async function POST(req: Request) {
+  // Works with Anthropic directly, or a compatible proxy/router (e.g. AgentRouter)
+  // via ANTHROPIC_BASE_URL + ANTHROPIC_AUTH_TOKEN.
+  const authToken = process.env.ANTHROPIC_AUTH_TOKEN;
   const apiKey = process.env.ANTHROPIC_API_KEY;
+  const baseURL = process.env.ANTHROPIC_BASE_URL?.replace(/\/+$/, "");
 
   let body: unknown;
   try {
@@ -74,7 +78,7 @@ export async function POST(req: Request) {
   }
 
   // Graceful fallback when the assistant isn't configured yet.
-  if (!apiKey) {
+  if (!authToken && !apiKey) {
     const text =
       `مرحبًا! المساعد الذكي لسه مش مفعّل. ` +
       `تواصل معانا مباشرة على واتساب ${site.whatsapp} وهنرد عليك فورًا. 🙌`;
@@ -83,7 +87,10 @@ export async function POST(req: Request) {
     });
   }
 
-  const client = new Anthropic({ apiKey });
+  const client = new Anthropic({
+    ...(authToken ? { authToken } : { apiKey: apiKey! }),
+    ...(baseURL ? { baseURL } : {}),
+  });
 
   const stream = client.messages.stream({
     model: MODEL,
