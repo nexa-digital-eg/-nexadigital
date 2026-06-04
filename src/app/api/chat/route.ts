@@ -1,11 +1,10 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 import { site } from "@/lib/site";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const envModel = process.env.GEMINI_MODEL || "";
-const MODEL = envModel.startsWith("gemini") ? envModel : "gemini-2.0-flash-lite";
+const MODEL = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
@@ -52,20 +51,15 @@ function sanitize(messages: unknown): ChatMessage[] {
         (m as ChatMessage).content.trim() !== ""
     )
     .map((m) => ({ role: m.role, content: m.content.slice(0, 4000) }))
-    .slice(-20);
+    .slice(-20); // keep the last 20 turns
 
+  // Conversation should start with a user message.
   while (cleaned.length && cleaned[0].role === "assistant") cleaned.shift();
   return cleaned;
 }
 
 export async function POST(req: Request) {
-  const apiKey =
-    process.env.GOOGLE_AI_API_KEY ||
-    process.env.GEMINI_API_KEY ||
-    process.env.GOOGLE_API_KEY ||
-    process.env.GOOGLE_GENERATIVE_AI_API_KEY;
-
-  console.log("[chat] key found:", !!apiKey, "| vars checked: GOOGLE_AI_API_KEY, GEMINI_API_KEY, GOOGLE_API_KEY, GOOGLE_GENERATIVE_AI_API_KEY");
+  const apiKey = process.env.GROQ_API_KEY;
 
   let body: unknown;
   try {
@@ -79,6 +73,7 @@ export async function POST(req: Request) {
     return Response.json({ error: "no_message" }, { status: 422 });
   }
 
+  // Graceful fallback when the assistant isn't configured yet.
   if (!apiKey) {
     const text =
       `مرحبًا! المساعد الذكي لسه مش مفعّل. ` +
@@ -88,34 +83,41 @@ export async function POST(req: Request) {
     });
   }
 
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({
-    model: MODEL,
-    systemInstruction: SYSTEM_PROMPT,
-  });
-
-  // Convert history (all messages except the last user message)
-  const history = messages.slice(0, -1).map((m) => ({
-    role: m.role === "user" ? "user" : "model",
-    parts: [{ text: m.content }],
-  }));
-
-  const chat = model.startChat({ history });
-  const lastMessage = messages[messages.length - 1].content;
+  const groq = new Groq({ apiKey });
 
   const encoder = new TextEncoder();
   const readable = new ReadableStream<Uint8Array>({
     async start(controller) {
       try {
-        const result = await chat.sendMessageStream(lastMessage);
-        for await (const chunk of result.stream) {
-          const text = chunk.text();
+        const stream = await groq.chat.completions.create({
+          model: MODEL,
+          max_tokens: 1024,
+          stream: true,
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            ...messages.map((m) => ({ role: m.role, content: m.content })),
+          ],
+        });
+
+        for await (const chunk of stream) {
+          const text = chunk.choices[0]?.delta?.content || "";
           if (text) controller.enqueue(encoder.encode(text));
         }
       } catch (err: unknown) {
+        let reason = "";
+        const status =
+          err && typeof err === "object" && "status" in err
+            ? (err as { status?: number }).status
+            : undefined;
         const msg = err instanceof Error ? err.message : String(err);
+        if (status === 401 || msg.includes("Invalid API Key")) {
+          reason = " — مفتاح API غير صحيح";
+        } else if (status === 429) {
+          reason = " — الطلبات كتير، حاول بعد شوية";
+        } else if (status === 404) {
+          reason = " — اسم الموديل غير موجود";
+        }
         console.error("[chat] stream error | model:", MODEL, "| msg:", msg);
-        const reason = " — " + msg.slice(0, 200);
         controller.enqueue(
           encoder.encode(
             `\n\n⚠️ حصل خطأ${reason}. تواصل معانا على واتساب ${site.whatsapp}.`
