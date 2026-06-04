@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Globe,
@@ -12,6 +13,12 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Reveal, StaggerGroup, itemVariants } from "./ui/Reveal";
+
+const serviceImages: Record<string, string> = {
+  websites: "/services/websites.jpg",
+  systems: "/services/systems.jpg",
+  automation: "/services/automation.jpg",
+};
 
 const icons: Record<string, LucideIcon> = {
   websites: Globe,
@@ -46,6 +53,18 @@ export function Services() {
               >
                 {/* hover glow */}
                 <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-brand-500/0 blur-2xl transition-all duration-500 group-hover:bg-brand-500/20" />
+
+                {serviceImages[service.key] && (
+                  <div className="relative mb-5 h-44 w-full overflow-hidden rounded-xl">
+                    <Image
+                      src={serviceImages[service.key]}
+                      alt={service.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  </div>
+                )}
 
                 <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-gradient shadow-glow">
                   <Icon className="h-7 w-7 text-white" />
