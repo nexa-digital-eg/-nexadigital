@@ -169,6 +169,20 @@ export const translations = {
       language: "English",
       menu: "القائمة",
     },
+    assistant: {
+      title: "مساعد نكسا الذكي",
+      greeting: "أهلاً 👋 أنا مساعد Nexa Digital الذكي. أقدر أساعدك في إيه؟",
+      placeholder: "اكتب رسالتك...",
+      send: "إرسال",
+      suggestions: [
+        "خدماتكم إيه؟",
+        "عايز موقع لمشروعي",
+        "كام سعر الموقع؟",
+        "كلموني واتساب",
+      ],
+      error: "حصل خطأ بسيط. حاول تاني أو تواصل معانا على واتساب.",
+      poweredBy: "مدعوم بـ Claude AI",
+    },
   },
 
   en: {
@@ -338,6 +352,21 @@ export const translations = {
     common: {
       language: "العربية",
       menu: "Menu",
+    },
+    assistant: {
+      title: "Nexa AI Assistant",
+      greeting:
+        "Hi 👋 I'm Nexa Digital's AI assistant. How can I help you today?",
+      placeholder: "Type your message...",
+      send: "Send",
+      suggestions: [
+        "What services do you offer?",
+        "I need a website",
+        "How much is a website?",
+        "Chat on WhatsApp",
+      ],
+      error: "Something went wrong. Try again or reach us on WhatsApp.",
+      poweredBy: "Powered by Claude AI",
     },
   },
 };

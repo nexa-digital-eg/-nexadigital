@@ -13,6 +13,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { IntroLoader } from "@/components/IntroLoader";
+import { ChatAssistant } from "@/components/ChatAssistant";
 
 export default function Home() {
   return (
@@ -34,6 +35,7 @@ export default function Home() {
       </main>
       <Footer />
       <FloatingActions />
+      <ChatAssistant />
     </>
   );
 }
