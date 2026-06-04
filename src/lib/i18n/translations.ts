@@ -181,7 +181,7 @@ export const translations = {
         "كلموني واتساب",
       ],
       error: "حصل خطأ بسيط. حاول تاني أو تواصل معانا على واتساب.",
-      poweredBy: "مدعوم بـ Claude AI",
+      poweredBy: "مدعوم بـ Nexa AI",
     },
   },
 
@@ -366,7 +366,7 @@ export const translations = {
         "Chat on WhatsApp",
       ],
       error: "Something went wrong. Try again or reach us on WhatsApp.",
-      poweredBy: "Powered by Claude AI",
+      poweredBy: "Powered by Nexa AI",
     },
   },
 };
