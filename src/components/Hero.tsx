@@ -195,17 +195,20 @@ export function Hero() {
             </div>
 
             {/* 5th service full width */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.72 }}
-              className={`mt-2.5 flex items-center gap-2.5 rounded-2xl bg-gradient-to-br ${services[4].color} border border-white/[0.07] p-3`}
-            >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/8">
-                <services[4].icon className={`h-4 w-4 ${services[4].iconColor}`} />
-              </span>
-              <span className="text-xs font-semibold text-white/90">{services[4].label}</span>
-            </motion.div>
+            {services.slice(4).map(({ icon: Icon, color, iconColor, label }) => (
+              <motion.div
+                key={label}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.72 }}
+                className={`mt-2.5 flex items-center gap-2.5 rounded-2xl bg-gradient-to-br ${color} border border-white/[0.07] p-3`}
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/8">
+                  <Icon className={`h-4 w-4 ${iconColor}`} />
+                </span>
+                <span className="text-xs font-semibold text-white/90">{label}</span>
+              </motion.div>
+            ))}
 
             {/* Stats row */}
             <div className="relative mt-4 grid grid-cols-3 gap-2">
