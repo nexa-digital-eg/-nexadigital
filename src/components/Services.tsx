@@ -18,6 +18,8 @@ const serviceImages: Record<string, string> = {
   websites: "/websites.jpg",
   systems: "/systems.jpg",
   automation: "/automation.jpg",
+  ai: "/ai.jpg",
+  cv: "/cv.jpg",
 };
 
 const icons: Record<string, LucideIcon> = {
@@ -100,9 +102,17 @@ export function Services() {
           {/* CTA card to fill the grid nicely */}
           <motion.div
             variants={itemVariants}
-            className="glass-card relative flex flex-col items-start justify-center overflow-hidden bg-brand-gradient p-7 text-white"
+            className="glass-card relative flex flex-col items-start justify-end overflow-hidden bg-brand-gradient p-7 text-white"
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.25),transparent_60%)]" />
+            {/* rocket background image */}
+            <Image
+              src="/cta.jpg"
+              alt=""
+              fill
+              className="object-cover object-center opacity-60"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-700/90 via-brand-600/50 to-transparent" />
             <h3 className="relative font-display text-2xl font-bold">
               {t.contact.title}
             </h3>
