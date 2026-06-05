@@ -1,22 +1,181 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  ShieldCheck, Clock, Cpu, Headset,
-  TrendingUp, Users, Star, Zap,
-  type LucideIcon,
-} from "lucide-react";
+import { ShieldCheck, Clock, Cpu, Headset, type LucideIcon } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Reveal } from "./ui/Reveal";
 
 const pointIcons: LucideIcon[] = [ShieldCheck, Clock, Cpu, Headset];
 
-const stats = [
-  { value: "50+",  label: "Projects Delivered", icon: TrendingUp, color: "text-sky-400",     bg: "bg-sky-500/10"    },
-  { value: "30+",  label: "Happy Clients",       icon: Users,      color: "text-violet-400",  bg: "bg-violet-500/10" },
-  { value: "100%", label: "Satisfaction Rate",   icon: Star,       color: "text-amber-400",   bg: "bg-amber-500/10"  },
-  { value: "24/7", label: "Support Available",   icon: Zap,        color: "text-emerald-400", bg: "bg-emerald-500/10"},
+/* ─── Neural-network visualization ─────────────────────────────────────────
+   All positions are pre-seeded (no Math.random) to avoid SSR/hydration mismatch.
+   viewBox: 360 × 300
+─────────────────────────────────────────────────────────────────────────── */
+const VW = 360;
+const VH = 300;
+
+const NODES = [
+  // id  x    y    r   label   main
+  { id: 0,  x: 180, y: 150, r: 22, label: "ND",   main: true  },
+  { id: 1,  x:  58, y:  58, r: 12, label: "Web",  main: false },
+  { id: 2,  x: 294, y:  48, r: 11, label: "AI",   main: false },
+  { id: 3,  x:  32, y: 192, r: 12, label: "UX",   main: false },
+  { id: 4,  x: 310, y: 198, r: 11, label: "Dev",  main: false },
+  { id: 5,  x: 130, y: 264, r: 10, label: "Auto", main: false },
+  { id: 6,  x: 248, y: 260, r:  9, label: "CV",   main: false },
+  { id: 7,  x: 228, y:  92, r:  5, label: "",     main: false },
+  { id: 8,  x:  92, y: 132, r:  5, label: "",     main: false },
+  { id: 9,  x: 262, y: 138, r:  5, label: "",     main: false },
+  { id: 10, x: 148, y:  46, r:  4, label: "",     main: false },
+  { id: 11, x: 328, y: 128, r:  4, label: "",     main: false },
 ];
+
+const EDGES: [number, number][] = [
+  [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6],
+  [1, 8], [1, 10], [2, 7], [2, 11],
+  [3, 8], [4, 9], [4, 11],
+  [5, 6], [5, 8], [7, 9], [10, 7],
+];
+
+const PULSES = [
+  { from: 0, to: 1, dur: "2.4s", begin: "0s"    },
+  { from: 1, to: 0, dur: "2.4s", begin: "1.2s"  },
+  { from: 0, to: 2, dur: "3.1s", begin: "0.8s"  },
+  { from: 0, to: 3, dur: "2.8s", begin: "0.4s"  },
+  { from: 3, to: 0, dur: "2.8s", begin: "1.8s"  },
+  { from: 0, to: 4, dur: "2.2s", begin: "1.2s"  },
+  { from: 0, to: 5, dur: "3.4s", begin: "0.6s"  },
+  { from: 0, to: 6, dur: "2.9s", begin: "1.8s"  },
+  { from: 1, to: 8, dur: "1.9s", begin: "0.3s"  },
+  { from: 2, to: 7, dur: "2.1s", begin: "1.1s"  },
+  { from: 4, to: 9, dur: "2.5s", begin: "0.7s"  },
+  { from: 3, to: 8, dur: "2.3s", begin: "1.4s"  },
+];
+
+function NeuralViz() {
+  return (
+    <svg
+      viewBox={`0 0 ${VW} ${VH}`}
+      className="absolute inset-0 h-full w-full"
+      aria-hidden
+    >
+      <defs>
+        <radialGradient id="ab-main" cx="40%" cy="35%">
+          <stop offset="0%" stopColor="#60b4ff" />
+          <stop offset="100%" stopColor="#1763ad" />
+        </radialGradient>
+        <radialGradient id="ab-node" cx="40%" cy="35%">
+          <stop offset="0%" stopColor="#1e4a7a" />
+          <stop offset="100%" stopColor="#0a1f38" />
+        </radialGradient>
+        <filter id="ab-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3.5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <filter id="ab-glow-sm" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="2" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      {/* edges */}
+      {EDGES.map(([a, b]) => {
+        const na = NODES[a], nb = NODES[b];
+        return (
+          <line
+            key={`e${a}-${b}`}
+            x1={na.x} y1={na.y}
+            x2={nb.x} y2={nb.y}
+            stroke="rgba(46,155,255,0.16)"
+            strokeWidth="1"
+          />
+        );
+      })}
+
+      {/* data pulses */}
+      {PULSES.map(({ from, to, dur, begin }) => {
+        const na = NODES[from], nb = NODES[to];
+        return (
+          <circle
+            key={`p${from}-${to}-${begin}`}
+            r="2.8"
+            fill="#38bdf8"
+            filter="url(#ab-glow-sm)"
+          >
+            <animateMotion
+              dur={dur}
+              repeatCount="indefinite"
+              begin={begin}
+              path={`M${na.x},${na.y} L${nb.x},${nb.y}`}
+            />
+            <animate
+              attributeName="opacity"
+              values="0;1;1;0"
+              keyTimes="0;0.1;0.9;1"
+              dur={dur}
+              repeatCount="indefinite"
+              begin={begin}
+            />
+          </circle>
+        );
+      })}
+
+      {/* nodes */}
+      {NODES.map((node) => (
+        <g key={node.id} filter={node.main ? "url(#ab-glow)" : undefined}>
+          {/* pulse ring on main node */}
+          {node.main && (
+            <>
+              <circle cx={node.x} cy={node.y} r={node.r + 12} fill="none" stroke="rgba(46,155,255,0.22)" strokeWidth="1">
+                <animate attributeName="r" values={`${node.r + 10};${node.r + 22};${node.r + 10}`} dur="3s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.25;0;0.25" dur="3s" repeatCount="indefinite" />
+              </circle>
+              <circle cx={node.x} cy={node.y} r={node.r + 6} fill="none" stroke="rgba(83,165,255,0.3)" strokeWidth="1">
+                <animate attributeName="r" values={`${node.r + 4};${node.r + 14};${node.r + 4}`} dur="3s" begin="0.5s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.3;0;0.3" dur="3s" begin="0.5s" repeatCount="indefinite" />
+              </circle>
+            </>
+          )}
+          {/* ambient glow disk */}
+          <circle
+            cx={node.x} cy={node.y}
+            r={node.r * (node.main ? 2.8 : 2.2)}
+            fill={node.main ? "rgba(46,155,255,0.10)" : "rgba(30,100,180,0.06)"}
+          />
+          {/* node body */}
+          <circle
+            cx={node.x} cy={node.y} r={node.r}
+            fill={node.main ? "url(#ab-main)" : "url(#ab-node)"}
+            stroke={node.main ? "rgba(96,180,255,0.7)" : "rgba(46,155,255,0.22)"}
+            strokeWidth={node.main ? 1.5 : 1}
+          />
+          {/* label */}
+          {node.label && (
+            <text
+              x={node.x} y={node.y}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fontSize={node.main ? 9 : 6.5}
+              fontWeight="700"
+              fill={node.main ? "#ffffff" : "rgba(147,197,253,0.9)"}
+              fontFamily="system-ui, -apple-system, sans-serif"
+              letterSpacing="0.03em"
+            >
+              {node.label}
+            </text>
+          )}
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+/* ─── About section ───────────────────────────────────────────────────────── */
 
 export function About() {
   const { t } = useLanguage();
@@ -24,75 +183,61 @@ export function About() {
   return (
     <section id="about" className="relative scroll-mt-24 py-20 sm:py-28">
       <div className="container-nexa grid items-center gap-12 lg:grid-cols-2">
-        {/* Visual — animated stats card */}
+
+        {/* ── Visual: neural network ─────────────────────────────────────── */}
         <Reveal from="right" className="order-2 lg:order-1">
           <div className="relative mx-auto w-full max-w-md">
-            {/* ambient glow */}
-            <div className="pointer-events-none absolute inset-0 rounded-3xl bg-brand-500/15 blur-3xl" />
+            {/* ambient outer glow */}
+            <div className="pointer-events-none absolute inset-4 rounded-3xl bg-brand-500/20 blur-3xl" />
 
-            <div className="glass-card relative overflow-hidden rounded-3xl p-7">
-              {/* card inner glow */}
-              <div className="pointer-events-none absolute -left-16 -top-16 h-52 w-52 rounded-full bg-brand-500/12 blur-3xl" />
+            <div
+              className="glass-card relative overflow-hidden rounded-3xl"
+              style={{ aspectRatio: `${VW}/${VH + 20}` }}
+            >
+              {/* deep space bg */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 55% 45%, rgba(30,80,160,0.28) 0%, transparent 65%), linear-gradient(160deg, #040d1e 0%, #020916 100%)",
+                }}
+              />
 
-              {/* header row */}
-              <div className="relative mb-6 flex items-center justify-between">
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-silver/45">Overview</p>
-                  <p className="mt-0.5 font-display text-lg font-bold text-white">Our Achievements</p>
-                </div>
-                <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/15 px-3 py-1 text-[10px] font-semibold text-emerald-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Live Stats
-                </span>
+              {/* grid overlay */}
+              <div
+                className="pointer-events-none absolute inset-0 opacity-[0.07]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(rgba(46,155,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(46,155,255,1) 1px, transparent 1px)",
+                  backgroundSize: "40px 40px",
+                }}
+              />
+
+              {/* neural network */}
+              <NeuralViz />
+
+              {/* status badge — top left */}
+              <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-black/50 px-3 py-1 backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[9px] font-bold uppercase tracking-widest text-emerald-400">Network Active</span>
               </div>
 
-              {/* stats grid */}
-              <div className="relative grid grid-cols-2 gap-3">
-                {stats.map(({ value, label, icon: Icon, color, bg }, i) => (
-                  <motion.div
-                    key={label}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.5 }}
-                    className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.03] p-4 transition-colors hover:bg-white/[0.06]"
-                  >
-                    {/* hover glow */}
-                    <div className={`pointer-events-none absolute -right-4 -top-4 h-16 w-16 rounded-full opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100 ${bg}`} />
-
-                    <span className={`flex h-9 w-9 items-center justify-center rounded-xl ${bg}`}>
-                      <Icon className={`h-4.5 w-4.5 h-[18px] w-[18px] ${color}`} />
-                    </span>
-                    <p className={`mt-3 font-display text-2xl font-extrabold ${color}`}>{value}</p>
-                    <p className="mt-0.5 text-[11px] font-medium leading-tight text-silver/55">{label}</p>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* bottom bar */}
-              <div className="relative mt-4 flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.03] px-4 py-3">
-                <div className="flex -space-x-2">
-                  {["bg-sky-500", "bg-violet-500", "bg-emerald-500"].map((c, i) => (
-                    <span key={i} className={`h-7 w-7 rounded-full border-2 border-[#0d1929] ${c} flex items-center justify-center text-[10px] font-bold text-white`}>
-                      {["W", "D", "D"][i]}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex-1">
-                  <p className="text-xs font-semibold text-white">Multi-discipline team</p>
-                  <p className="text-[10px] text-silver/45">Web · Design · Development</p>
-                </div>
-                <div className="flex items-center gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
+              {/* stats bar — bottom overlay */}
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-around rounded-2xl border border-white/[0.08] bg-black/55 px-3 py-2.5 backdrop-blur-md">
+                {([ ["50+", "Projects"], ["30+", "Clients"], ["100%", "Satisfaction"], ["24/7", "Support"] ] as const).map(
+                  ([val, lbl]) => (
+                    <div key={lbl} className="flex flex-col items-center">
+                      <span className="font-display text-sm font-extrabold gradient-text">{val}</span>
+                      <span className="mt-0.5 text-[8px] font-medium uppercase tracking-wider text-silver/40">{lbl}</span>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </div>
         </Reveal>
 
-        {/* Copy */}
+        {/* ── Copy ──────────────────────────────────────────────────────── */}
         <div className="order-1 lg:order-2">
           <Reveal>
             <span className="section-eyebrow">{t.about.eyebrow}</span>
@@ -123,6 +268,7 @@ export function About() {
             })}
           </div>
         </div>
+
       </div>
     </section>
   );
