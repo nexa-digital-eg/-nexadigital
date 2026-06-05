@@ -6,17 +6,17 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 type Stat = { value: number; suffix: string; labelKey: keyof StatLabels };
 type StatLabels = {
-  projects: string;
   clients: string;
+  reviews: string;
   experience: string;
   support: string;
 };
 
 const stats: Stat[] = [
-  { value: 120, suffix: "+", labelKey: "projects" },
-  { value: 80, suffix: "+", labelKey: "clients" },
-  { value: 5, suffix: "+", labelKey: "experience" },
-  { value: 24, suffix: "/7", labelKey: "support" },
+  { value: 10000, suffix: "+", labelKey: "clients"    },
+  { value: 1000,  suffix: "+", labelKey: "reviews"    },
+  { value: 5,     suffix: "+", labelKey: "experience" },
+  { value: 24,    suffix: "/7", labelKey: "support"   },
 ];
 
 function Counter({ to, suffix }: { to: number; suffix: string }) {
