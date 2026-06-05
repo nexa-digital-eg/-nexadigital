@@ -109,10 +109,10 @@ export function Services() {
               src="/cta.jpg"
               alt=""
               fill
-              className="object-cover object-center opacity-60"
+              className="object-cover object-center opacity-40"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-700/90 via-brand-600/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-800/80 to-brand-700/60" />
             <h3 className="relative font-display text-2xl font-bold">
               {t.contact.title}
             </h3>
