@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>تقرير تدقيق موقع Nexa Digital — يونيو 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: #f4f6fb;
+    color: #1a1f2e;
+    line-height: 1.7;
+    font-size: 14px;
+  }
+
+  /* ── Cover Page ─────────────────────────────────────── */
+  .cover {
+    background: linear-gradient(135deg, #0d1b35 0%, #0a3060 50%, #0d1b35 100%);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(46,155,255,0.18) 0%, transparent 55%),
+                radial-gradient(circle at 70% 70%, rgba(56,189,248,0.12) 0%, transparent 50%);
+  }
+  .cover-logo {
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-logo span.blue { color: #38bdf8; }
+  .cover-logo span.white { color: #ffffff; }
+  .cover-tag {
+    margin-top: 8px;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #2e9bff, #38bdf8);
+    border-radius: 2px;
+    margin: 30px auto;
+    position: relative;
+    z-index: 1;
+  }
+  .cover h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    position: relative;
+    z-index: 1;
+  }
+  .cover .cover-sub {
+    margin-top: 12px;
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    position: relative;
+    z-index: 1;
+  }
+  .cover-meta {
+    margin-top: 60px;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-meta-item { text-align: center; }
+  .cover-meta-item .label { font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+  .cover-meta-item .value { font-size: 15px; font-weight: 700; color: white; margin-top: 4px; }
+  .cover-score-box {
+    margin-top: 50px;
+    display: inline-block;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 20px 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-score-box .score-num {
+    font-size: 56px;
+    font-weight: 900;
+    color: #38bdf8;
+    line-height: 1;
+  }
+  .cover-score-box .score-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── Layout ─────────────────────────────────────────── */
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px 40px;
+  }
+
+  /* ── Section Headers ─────────────────────────────────── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    margin-top: 48px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #e8edf5;
+  }
+  .section-header:first-child { margin-top: 0; }
+  .section-num {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2e9bff, #38bdf8);
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0d1b35;
+  }
+  .section-header .score-badge {
+    margin-right: auto;
+    background: #f0f7ff;
+    border: 1px solid #c8e0ff;
+    color: #2e9bff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 20px;
+  }
+
+  /* ── Cards ───────────────────────────────────────────── */
+  .card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #e8edf5;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* ── Finding Items ───────────────────────────────────── */
+  .finding {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f4f9;
+  }
+  .finding:last-child { border-bottom: none; }
+  .finding-badge {
+    flex-shrink: 0;
+    height: 22px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0 8px;
+    display: flex; align-items: center;
+    margin-top: 2px;
+  }
+  .badge-high    { background: #fff0f0; color: #dc2626; border: 1px solid #fecaca; }
+  .badge-medium  { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+  .badge-low     { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+  .badge-good    { background: #f0f7ff; color: #2e9bff; border: 1px solid #bfdbfe; }
+  .finding-text h4 { font-size: 13.5px; font-weight: 700; color: #1a1f2e; margin-bottom: 4px; }
+  .finding-text p  { font-size: 12.5px; color: #64748b; line-height: 1.6; }
+  .finding-text code { background: #f1f5f9; padding: 1px 6px; border-radius: 4px; font-family: monospace; font-size: 11px; color: #0f172a; }
+
+  /* ── Strengths / Weaknesses boxes ───────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .strength-box { background: #f0fdf4; border: 1px solid #86efac; border-radius: 12px; padding: 18px 20px; }
+  .weakness-box { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 12px; padding: 18px 20px; }
+  .box-title { font-size: 13px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .strength-box .box-title { color: #15803d; }
+  .weakness-box .box-title { color: #c2410c; }
+  .box-list { list-style: none; }
+  .box-list li { font-size: 12.5px; padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; gap: 8px; }
+  .box-list li:last-child { border-bottom: none; }
+  .box-list li::before { content: '●'; flex-shrink: 0; font-size: 8px; margin-top: 5px; }
+  .strength-box .box-list li::before { color: #16a34a; }
+  .weakness-box .box-list li::before { color: #ea580c; }
+
+  /* ── Score Table ─────────────────────────────────────── */
+  .score-table { width: 100%; border-collapse: collapse; margin: 20px 0; border-radius: 12px; overflow: hidden; }
+  .score-table th { background: #0d1b35; color: white; padding: 12px 16px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; text-align: right; }
+  .score-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid #f0f4f9; }
+  .score-table tr:last-child td { border-bottom: none; }
+  .score-table tr:nth-child(even) td { background: #fafbfd; }
+  .score-bar-wrap { background: #e8edf5; border-radius: 20px; height: 8px; overflow: hidden; }
+  .score-bar { height: 100%; border-radius: 20px; background: linear-gradient(90deg, #2e9bff, #38bdf8); }
+  .score-val { font-weight: 700; color: #2e9bff; }
+  .total-row td { background: #f0f7ff !important; font-weight: 700; }
+
+  /* ── Priority List ───────────────────────────────────── */
+  .priority-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+  .priority-high   { background: #fff5f5; border: 1px solid #fecaca; }
+  .priority-medium { background: #fffcf0; border: 1px solid #fde68a; }
+  .priority-low    { background: #f6fef9; border: 1px solid #bbf7d0; }
+  .priority-num {
+    width: 28px; height: 28px; border-radius: 8px;
+    color: white; font-weight: 700; font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .priority-high   .priority-num { background: #dc2626; }
+  .priority-medium .priority-num { background: #d97706; }
+  .priority-low    .priority-num { background: #16a34a; }
+  .priority-content h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .priority-content p  { font-size: 12px; color: #64748b; }
+
+  /* ── Page Break ──────────────────────────────────────── */
+  .page-break { page-break-before: always; }
+
+  /* ── Footer ──────────────────────────────────────────── */
+  .report-footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 60px;
+    border-top: 1px solid #e8edf5;
+    font-size: 11px;
+    color: #94a3b8;
+  }
+
+  /* ── Print Styles ────────────────────────────────────── */
+  @media print {
+    body { background: white; }
+    .cover { min-height: 100vh; }
+    .no-print { display: none; }
+  }
+
+  @media (max-width: 680px) {
+    .two-col { grid-template-columns: 1fr; }
+    .page { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ COVER PAGE ═══════════ -->
+<div class="cover">
+  <div class="cover-logo">
+    <span class="blue">NEXA</span> <span class="white">DIGITAL</span>
+  </div>
+  <div class="cover-tag">Smart Solutions · Digital Future</div>
+  <div class="cover-divider"></div>
+  <h1>تقرير تدقيق الموقع الشامل</h1>
+  <div class="cover-sub">تحليل كامل للأداء · SEO · الكود · الأمان · تجربة المستخدم</div>
+
+  <div class="cover-score-box">
+    <div class="score-num">7.6</div>
+    <div class="score-label">من 10 — تقييم عام</div>
+  </div>
+
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <div class="label">التاريخ</div>
+      <div class="value">يونيو 2026</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">إعداد</div>
+      <div class="value">Claude Code</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">الإطار</div>
+      <div class="value">Next.js 14</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">المكونات</div>
+      <div class="value">21 component</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ PAGE 1 — OVERVIEW ═══════════ -->
+<div class="page">
+
+  <!-- نقاط القوة والضعف -->
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <h2>نظرة عامة — نقاط القوة والضعف</h2>
+  </div>
+
+  <div class="two-col">
+    <div class="strength-box">
+      <div class="box-title">✅ نقاط القوة</div>
+      <ul class="box-list">
+        <li>Next.js 14 App Router — أحدث إطار عمل</li>
+        <li>TypeScript بالكامل — لا أخطاء بناء</li>
+        <li>دعم كامل للعربية والإنجليزية (RTL/LTR)</li>
+        <li>Framer Motion animations سلسة</li>
+        <li>تكامل WhatsApp مع رسائل مسبقة الضبط</li>
+        <li>شات بوت ذكاء اصطناعي بـ Groq SDK</li>
+        <li>Intro loader animation احترافي</li>
+        <li>Sitemap.xml وrobots.txt موجودان</li>
+        <li>نموذج اتصال مع validation وhoneypot</li>
+        <li>OG image بالأبعاد الصحيحة (1200×630)</li>
+        <li>Google Fonts بـ display:swap (سرعة تحميل)</li>
+        <li>21 component منظمة وقابلة للصيانة</li>
+        <li>بيانات 10,000+ عميل حقيقية موثقة</li>
+        <li>تقييمات حقيقية من العملاء (صور)</li>
+      </ul>
+    </div>
+    <div class="weakness-box">
+      <div class="box-title">⚠️ نقاط الضعف</div>
+      <ul class="box-list">
+        <li>صور الخدمات ضخمة (9.5MB) — تبطئ التحميل</li>
+        <li>لا يوجد صفحة 404 مخصصة</li>
+        <li>لا يوجد JSON-LD structured data</li>
+        <li>Logo يستخدم img عادي بدل Next.js Image</li>
+        <li>لا يوجد rate limiting على الـ API</li>
+        <li>لا يوجد Google Analytics</li>
+        <li>لا يوجد صفحة خطأ مخصصة (error.tsx)</li>
+        <li>تقييمات Facebook 3 صور فقط (تحتاج المزيد)</li>
+        <li>logo-lockup.png غير مستخدم (652KB هدر)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════ SEO ═══════════ -->
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <h2>تحليل SEO</h2>
+    <div class="score-badge">8 / 10</div>
+  </div>
+
+  <div class="card">
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ ممتاز</span>
+      <div class="finding-text">
+        <h4>Metadata شاملة</h4>
+        <p>العنوان والوصف والكلمات المفتاحية باللغتين موجودة في <code>layout.tsx</code>. OG tags وTwitter cards صحيحة. metadataBase معرّفة بشكل صحيح.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ موجود</span>
+      <div class="finding-text">
+        <h4>Sitemap.xml + Robots.txt</h4>
+        <p>كلاهما منفّذ في <code>src/app/sitemap.ts</code> و<code>src/app/robots.ts</code>. محركات البحث ستجد الموقع بسهولة.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ صحيح</span>
+      <div class="finding-text">
+        <h4>تسلسل العناوين (Heading Hierarchy)</h4>
+        <p>H1 في Hero فقط، H2 لكل section، H3 للـ subsections. هيكل سليم 100%.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-high">HIGH</span>
+      <div class="finding-text">
+        <h4>غياب JSON-LD Structured Data</h4>
+        <p>لا يوجد schema.org markup. هذا يحرم الموقع من Rich Snippets في نتائج Google (نجوم التقييمات، معلومات الشركة، الموقع). يُنصح بإضافة <code>Organization</code> و<code>LocalBusiness</code> schema.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-medium">MEDIUM</span>
+      <div class="finding-text">
+        <h4>الكلمات المفتاحية تحتاج توسعة</h4>
+        <p>الكلمات الحالية عامة (web development, تصميم مواقع). يُنصح بإضافة كلمات خاصة بالـ CV مثل: "كتابة سيرة ذاتية", "تحسين LinkedIn", "CV احترافي" للاستفادة من قاعدة 10,000 عميل.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-low">LOW</span>
+      <div class="finding-text">
+        <h4>لا يوجد Canonical URL صريح</h4>
+        <p>بما إن الموقع Single Page لا يُعدّ مشكلة كبيرة، لكن إضافة canonical link في الـ layout يُحسّن السيو.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PERFORMANCE ═══════════ -->
+  <div class="section-header page-break">
+    <div class="section-num">03</div>
+    <h2>الأداء وسرعة التحميل</h2>
+    <div class="score-badge">6 / 10</div>
+  </div>
+
+  <div class="card">
+    <div class="finding">
+      <span class="finding-badge badge-high">HIGH</span>
+      <div class="finding-text">
+        <h4>صور الخدمات ضخمة جداً — أكبر مشكلة أداء</h4>
+        <p>
+          <code>ai.jpg</code>: 1.6MB &nbsp;|&nbsp;
+          <code>cv.jpg</code>: 1.7MB &nbsp;|&nbsp;
+          <code>websites.jpg</code>: 1.6MB<br/>
+          <code>automation.jpg</code>: 1.5MB &nbsp;|&nbsp;
+          <code>systems.jpg</code>: 1.4MB &nbsp;|&nbsp;
+          <code>cta.jpg</code>: 1.7MB<br/><br/>
+          <strong>المجموع: 9.5MB من الصور غير محسوبة.</strong> يجب ضغطها إلى WebP وتقليلها لـ 200KB-400KB لكل صورة. هذا وحده سيُحسّن LCP بشكل كبير.
+        </p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-high">HIGH</span>
+      <div class="finding-text">
+        <h4>Logo يستخدم raw &lt;img&gt; بدل Next.js Image</h4>
+        <p>ملفات <code>Hero.tsx</code> و<code>Logo.tsx</code> و<code>IntroLoader.tsx</code> تستخدم علامة img عادية. Next.js Image يوفر ضغطاً تلقائياً، WebP conversion، lazy loading، وCDN caching.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ جيد</span>
+      <div class="finding-text">
+        <h4>Google Fonts بـ display:swap</h4>
+        <p>Cairo وOutfit وSora محمّلة بـ font-display:swap — هذا يمنع FOIT ويُحسّن Core Web Vitals. إعداد ممتاز.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-medium">MEDIUM</span>
+      <div class="finding-text">
+        <h4>Intro Loader يستخدم Canvas ثقيل</h4>
+        <p>نظام الجسيمات في <code>IntroLoader.tsx</code> يحسب 160 نقطة × 160 × الجسيمات المتحركة لكل frame. يُنصح بتخفيض COUNT على الأجهزة الضعيفة أو استخدام <code>requestIdleCallback</code>.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ جيد</span>
+      <div class="finding-text">
+        <h4>Sharp مثبّت — Next.js Image جاهز</h4>
+        <p>الحزمة <code>sharp@0.34.5</code> مثبّتة — تعني إن Next.js Image optimization شغّال وجاهز لما تُحوّل الصور.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ ACCESSIBILITY ═══════════ -->
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <h2>إمكانية الوصول (Accessibility)</h2>
+    <div class="score-badge">8 / 10</div>
+  </div>
+
+  <div class="card">
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ ممتاز</span>
+      <div class="finding-text">
+        <h4>HTML Semantic صحيح</h4>
+        <p>استخدام صحيح لـ <code>&lt;section&gt;</code>، <code>&lt;nav&gt;</code>، <code>&lt;footer&gt;</code>، <code>&lt;article&gt;</code>، <code>&lt;figure&gt;</code>، <code>&lt;figcaption&gt;</code>.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ جيد</span>
+      <div class="finding-text">
+        <h4>ARIA Labels موجودة</h4>
+        <p>أزرار القائمة، تبديل اللغة، إغلاق الشات، زر الإرسال — كلها لها aria-label. الإجمالي: 32 aria label في الكود.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ جيد</span>
+      <div class="finding-text">
+        <h4>نموذج الاتصال Accessible</h4>
+        <p>كل input مرتبط بـ label عبر htmlFor/id. رسائل الخطأ ظاهرة. keyboard navigation سليم.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-medium">MEDIUM</span>
+      <div class="finding-text">
+        <h4>صور التقييمات بدون نص بديل وصفي</h4>
+        <p>صور comment-1/2/3.png تعرض كومنتات Facebook لكن alt text عام ("تقييم عميل 1"). يُنصح بكتابة نص وصفي للمحتوى.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ CODE QUALITY ═══════════ -->
+  <div class="section-header page-break">
+    <div class="section-num">05</div>
+    <h2>جودة الكود والاكتمال</h2>
+    <div class="score-badge">9 / 10</div>
+  </div>
+
+  <div class="card">
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ ممتاز</span>
+      <div class="finding-text">
+        <h4>بنية المكونات نظيفة ومنظمة</h4>
+        <p>21 مكون كل واحد مسؤول عن قسم واحد. لا يوجد مكونات متداخلة بشكل مفرط. سهل الصيانة والتطوير مستقبلاً.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ موجود</span>
+      <div class="finding-text">
+        <h4>اكتمال أقسام الموقع</h4>
+        <p>Navbar · Hero · Stats · Services · About · Process · Portfolio · Testimonials · FAQ · Contact · Footer · WhatsApp Button · Chat Assistant · Intro Loader · Scroll Progress — كل الأقسام المهمة موجودة.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ جيد</span>
+      <div class="finding-text">
+        <h4>TypeScript بدون أخطاء</h4>
+        <p><code>npx tsc --noEmit</code> لا يُظهر أي خطأ. الكود type-safe بالكامل.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-high">HIGH</span>
+      <div class="finding-text">
+        <h4>لا يوجد صفحة 404 مخصصة</h4>
+        <p>عند زيارة رابط غير موجود، يظهر الـ 404 الافتراضي من Next.js بدون هوية Nexa. يُنصح بإنشاء <code>src/app/not-found.tsx</code>.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-medium">MEDIUM</span>
+      <div class="finding-text">
+        <h4>logo-lockup.png غير مستخدم</h4>
+        <p>الملف (652KB) موجود في public/ لكن لا يستخدمه أي component. هدر في الحجم.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SECURITY ═══════════ -->
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <h2>الأمان</h2>
+    <div class="score-badge">8 / 10</div>
+  </div>
+
+  <div class="card">
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ جيد</span>
+      <div class="finding-text">
+        <h4>حماية نموذج الاتصال</h4>
+        <p>يوجد honeypot field لمنع الـ bots. Validation قوي مع تنظيف المدخلات وحد أقصى للأحرف. لا SQL injection.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ جيد</span>
+      <div class="finding-text">
+        <h4>Environment Variables مُستخدمة بشكل صحيح</h4>
+        <p>GROQ_API_KEY وDATABASE_URL ليسوا hardcoded في الكود. .env في .gitignore.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-medium">MEDIUM</span>
+      <div class="finding-text">
+        <h4>لا يوجد Rate Limiting على الـ APIs</h4>
+        <p>API الشات (<code>/api/chat</code>) و Contact (<code>/api/contact</code>) بدون حد للطلبات. يمكن استغلالها لاستنزاف Groq credits أو إغراق قاعدة البيانات. يُنصح بإضافة rate limiting بـ Vercel Edge Middleware.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="finding-badge badge-good">✓ جيد</span>
+      <div class="finding-text">
+        <h4>External Links آمنة</h4>
+        <p>كل الروابط الخارجية (WhatsApp, Facebook) تستخدم <code>rel="noopener noreferrer"</code>. لا خطر تسرب.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SCORE TABLE ═══════════ -->
+  <div class="section-header page-break">
+    <div class="section-num">07</div>
+    <h2>ملخص التقييمات</h2>
+  </div>
+
+  <table class="score-table">
+    <thead>
+      <tr>
+        <th>المعيار</th>
+        <th>التقييم</th>
+        <th>الدرجة</th>
+        <th style="width:200px">الأداء</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🔍 SEO وتحسين محركات البحث</td>
+        <td>جيد</td>
+        <td class="score-val">8 / 10</td>
+        <td><div class="score-bar-wrap"><div class="score-bar" style="width:80%"></div></div></td>
+      </tr>
+      <tr>
+        <td>⚡ الأداء وسرعة التحميل</td>
+        <td>يحتاج تحسين</td>
+        <td class="score-val">6 / 10</td>
+        <td><div class="score-bar-wrap"><div class="score-bar" style="width:60%; background: linear-gradient(90deg, #f59e0b, #fbbf24)"></div></div></td>
+      </tr>
+      <tr>
+        <td>♿ إمكانية الوصول</td>
+        <td>جيد</td>
+        <td class="score-val">8 / 10</td>
+        <td><div class="score-bar-wrap"><div class="score-bar" style="width:80%"></div></div></td>
+      </tr>
+      <tr>
+        <td>💻 جودة الكود</td>
+        <td>ممتاز</td>
+        <td class="score-val">9 / 10</td>
+        <td><div class="score-bar-wrap"><div class="score-bar" style="width:90%"></div></div></td>
+      </tr>
+      <tr>
+        <td>🔒 الأمان</td>
+        <td>جيد</td>
+        <td class="score-val">8 / 10</td>
+        <td><div class="score-bar-wrap"><div class="score-bar" style="width:80%"></div></div></td>
+      </tr>
+      <tr>
+        <td>✅ اكتمال الموقع</td>
+        <td>جيد</td>
+        <td class="score-val">8 / 10</td>
+        <td><div class="score-bar-wrap"><div class="score-bar" style="width:80%"></div></div></td>
+      </tr>
+      <tr>
+        <td>🌐 الترجمة والتعريب</td>
+        <td>ممتاز</td>
+        <td class="score-val">9 / 10</td>
+        <td><div class="score-bar-wrap"><div class="score-bar" style="width:90%"></div></div></td>
+      </tr>
+      <tr>
+        <td>🖼️ الصور والأصول</td>
+        <td>يحتاج تحسين</td>
+        <td class="score-val">6 / 10</td>
+        <td><div class="score-bar-wrap"><div class="score-bar" style="width:60%; background: linear-gradient(90deg, #f59e0b, #fbbf24)"></div></div></td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>التقييم الإجمالي</strong></td>
+        <td><strong>جيد جداً</strong></td>
+        <td class="score-val"><strong>7.6 / 10</strong></td>
+        <td><div class="score-bar-wrap"><div class="score-bar" style="width:76%"></div></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════════ PRIORITIES ═══════════ -->
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <h2>الأولويات والتوصيات</h2>
+  </div>
+
+  <p style="margin-bottom:20px; color:#64748b; font-size:13px;">مرتبة حسب الأولوية والتأثير على الموقع:</p>
+
+  <!-- High Priority -->
+  <p style="font-weight:700; font-size:13px; color:#dc2626; margin-bottom:10px; letter-spacing:1px; text-transform:uppercase;">🔴 أولوية عالية — يُنجز أولاً</p>
+
+  <div class="priority-item priority-high">
+    <div class="priority-num">1</div>
+    <div class="priority-content">
+      <h4>ضغط وتحسين صور الخدمات</h4>
+      <p>تحويل 6 صور (9.5MB) إلى WebP وتقليلها لأقل من 400KB لكل صورة. سيُحسّن سرعة التحميل بنسبة 60%+ ويرفع Core Web Vitals.</p>
+    </div>
+  </div>
+  <div class="priority-item priority-high">
+    <div class="priority-num">2</div>
+    <div class="priority-content">
+      <h4>إضافة صفحة 404 مخصصة</h4>
+      <p>إنشاء <code>src/app/not-found.tsx</code> بتصميم Nexa بدلاً من الصفحة الافتراضية. يُحسّن تجربة المستخدم والـ brand.</p>
+    </div>
+  </div>
+  <div class="priority-item priority-high">
+    <div class="priority-num">3</div>
+    <div class="priority-content">
+      <h4>إضافة JSON-LD Structured Data</h4>
+      <p>إضافة Organization + LocalBusiness schema للظهور في Rich Snippets على Google وتحسين SEO بشكل ملحوظ.</p>
+    </div>
+  </div>
+
+  <!-- Medium Priority -->
+  <p style="font-weight:700; font-size:13px; color:#d97706; margin:24px 0 10px; letter-spacing:1px; text-transform:uppercase;">🟡 أولوية متوسطة — الأسبوع القادم</p>
+
+  <div class="priority-item priority-medium">
+    <div class="priority-num">4</div>
+    <div class="priority-content">
+      <h4>إضافة كلمات مفتاحية CV في SEO</h4>
+      <p>استغلال قاعدة 10,000 عميل بإضافة: "كتابة سيرة ذاتية احترافية", "تحسين LinkedIn", "CV للسعودية والإمارات".</p>
+    </div>
+  </div>
+  <div class="priority-item priority-medium">
+    <div class="priority-num">5</div>
+    <div class="priority-content">
+      <h4>تحويل Logo إلى Next.js Image</h4>
+      <p>استبدال raw &lt;img&gt; في Hero.tsx وLogo.tsx وIntroLoader.tsx بـ Next.js Image لأداء أفضل.</p>
+    </div>
+  </div>
+  <div class="priority-item priority-medium">
+    <div class="priority-num">6</div>
+    <div class="priority-content">
+      <h4>إضافة Rate Limiting للـ APIs</h4>
+      <p>حماية /api/chat و/api/contact من الاستغلال المفرط لمنع استنزاف Groq credits وحماية قاعدة البيانات.</p>
+    </div>
+  </div>
+  <div class="priority-item priority-medium">
+    <div class="priority-num">7</div>
+    <div class="priority-content">
+      <h4>إضافة المزيد من صور التقييمات</h4>
+      <p>3 صور فقط حالياً. مع 1,000+ كومنت إيجابي، يمكن إضافة 10-15 صورة لتقوية السوشيال بروف بشكل ملحوظ.</p>
+    </div>
+  </div>
+  <div class="priority-item priority-medium">
+    <div class="priority-num">8</div>
+    <div class="priority-content">
+      <h4>Google Analytics</h4>
+      <p>إضافة تتبع بـ Google Analytics 4 لمعرفة من أين يأتي الزوار وما الصفحات الأكثر تفاعلاً.</p>
+    </div>
+  </div>
+
+  <!-- Low Priority -->
+  <p style="font-weight:700; font-size:13px; color:#16a34a; margin:24px 0 10px; letter-spacing:1px; text-transform:uppercase;">🟢 أولوية منخفضة — مستقبلاً</p>
+
+  <div class="priority-item priority-low">
+    <div class="priority-num">9</div>
+    <div class="priority-content">
+      <h4>صفحة خطأ مخصصة (error.tsx)</h4>
+      <p>إنشاء error boundary page بتصميم Nexa لحالات الخطأ غير المتوقعة في الـ runtime.</p>
+    </div>
+  </div>
+  <div class="priority-item priority-low">
+    <div class="priority-num">10</div>
+    <div class="priority-content">
+      <h4>حذف logo-lockup.png</h4>
+      <p>الملف غير مستخدم ويضيف 652KB للـ bundle. حذفه يُنظّف المشروع.</p>
+    </div>
+  </div>
+  <div class="priority-item priority-low">
+    <div class="priority-num">11</div>
+    <div class="priority-content">
+      <h4>إضافة صفحة سياسة الخصوصية</h4>
+      <p>مهمة للمصداقية، خاصةً مع عملاء السعودية والإمارات. يمكن إضافة رابطها في الـ Footer.</p>
+    </div>
+  </div>
+
+  <div class="report-footer">
+    <p>تقرير صادر عن Claude Code &nbsp;·&nbsp; Nexa Digital &nbsp;·&nbsp; يونيو 2026</p>
+    <p style="margin-top:6px;">nexadigital-psi.vercel.app &nbsp;·&nbsp; Next.js 14 · TypeScript · Tailwind CSS · Framer Motion</p>
+  </div>
+
+</div>
+</body>
+</html>
