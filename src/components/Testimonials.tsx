@@ -10,7 +10,9 @@ import { Reveal } from "./ui/Reveal";
  * e.g. "review-yousef.jpg", "review-ahmed.jpg" ...
  */
 const REVIEW_IMAGES: string[] = [
-  // filenames go here once uploaded
+  "comment-1.png",
+  // "comment-2.png",
+  // "comment-3.png",
 ];
 
 export function Testimonials() {
