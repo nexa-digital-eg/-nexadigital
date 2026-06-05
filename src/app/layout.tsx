@@ -5,7 +5,7 @@ import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import { site } from "@/lib/site";
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-8ZV2RLSRP6";
 
 // Arabic (and Latin fallback) — handles RTL content.
 const cairo = Cairo({
