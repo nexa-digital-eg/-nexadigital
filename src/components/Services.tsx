@@ -15,9 +15,9 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { Reveal, StaggerGroup, itemVariants } from "./ui/Reveal";
 
 const serviceImages: Record<string, string> = {
-  websites: "/services/websites.jpg",
-  systems: "/services/systems.jpg",
-  automation: "/services/automation.jpg",
+  websites: "/websites.jpg",
+  systems: "/systems.jpg",
+  automation: "/automation.jpg",
 };
 
 const icons: Record<string, LucideIcon> = {
