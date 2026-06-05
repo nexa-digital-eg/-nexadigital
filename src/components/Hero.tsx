@@ -7,39 +7,50 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ArrowLeft, ArrowRight, Sparkles, MessageCircle } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Sparkles,
+  MessageCircle,
+  Globe,
+  Code2,
+  Workflow,
+  BrainCircuit,
+  FileText,
+  Star,
+} from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { whatsappLink } from "@/lib/site";
 import { GridGlow } from "./ui/Background";
 import { Particles } from "./Particles";
+import { LogoMarkSVG } from "./Logo";
 
-// Service keywords that orbit around the logo
-const orbitChips = ["Websites", "Systems", "Automation", "AI", "CV"];
-const ORBIT_RADIUS = 172; // px, relative to the fixed-size visual
-const ORBIT_DURATION = 22; // seconds per revolution
+const services = [
+  { icon: Globe,        label: "Websites",   color: "from-blue-500/25 to-cyan-500/10",    iconColor: "text-sky-300"     },
+  { icon: BrainCircuit, label: "AI",          color: "from-violet-500/25 to-fuchsia-500/10", iconColor: "text-violet-300" },
+  { icon: Code2,        label: "Systems",    color: "from-emerald-500/25 to-teal-500/10", iconColor: "text-emerald-300" },
+  { icon: Workflow,     label: "Automation", color: "from-orange-500/25 to-amber-500/10", iconColor: "text-orange-300"  },
+  { icon: FileText,     label: "CV & LinkedIn", color: "from-pink-500/25 to-rose-500/10", iconColor: "text-pink-300"    },
+];
 
 export function Hero() {
   const { t, locale } = useLanguage();
   const Arrow = locale === "ar" ? ArrowLeft : ArrowRight;
 
-  // Mouse-based parallax tilt for the hero visual
   const ref = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const smx = useSpring(mx, { stiffness: 150, damping: 20 });
   const smy = useSpring(my, { stiffness: 150, damping: 20 });
-  const rotateY = useTransform(smx, [-0.5, 0.5], [12, -12]);
-  const rotateX = useTransform(smy, [-0.5, 0.5], [-12, 12]);
+  const rotateY = useTransform(smx, [-0.5, 0.5], [10, -10]);
+  const rotateX = useTransform(smy, [-0.5, 0.5], [-10, 10]);
 
   function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
     mx.set((e.clientX - rect.left) / rect.width - 0.5);
     my.set((e.clientY - rect.top) / rect.height - 0.5);
   }
-  function onMouseLeave() {
-    mx.set(0);
-    my.set(0);
-  }
+  function onMouseLeave() { mx.set(0); my.set(0); }
 
   return (
     <section
@@ -52,7 +63,8 @@ export function Hero() {
       <Particles className="-z-[5]" />
 
       <div className="container-nexa relative z-10 grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
-        {/* Copy */}
+
+        {/* ── Copy ──────────────────────────────────────────────── */}
         <div className="text-center lg:text-start">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
@@ -122,90 +134,113 @@ export function Hero() {
           </motion.p>
         </div>
 
-        {/* Visual */}
+        {/* ── Visual: Dashboard card ─────────────────────────────── */}
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, scale: 0.9, y: 24 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           style={{ rotateX, rotateY, transformPerspective: 1000 }}
-          className="relative mx-auto hidden aspect-square w-full max-w-[420px] lg:block [transform-style:preserve-3d]"
+          className="relative mx-auto hidden w-full max-w-[390px] lg:block [transform-style:preserve-3d]"
         >
-          {/* orbit path rings */}
-          <div className="absolute inset-0 rounded-full border border-white/10" />
-          <div className="absolute inset-[14%] rounded-full border border-white/[0.06]" />
+          {/* Ambient glow behind card */}
+          <div className="pointer-events-none absolute inset-0 -z-10 scale-90 rounded-3xl bg-brand-500/20 blur-3xl" />
 
-          {/* rotating conic accent */}
+          {/* Main dashboard card */}
           <motion.div
-            className="absolute inset-0 rounded-full"
-            style={{
-              background:
-                "conic-gradient(from 0deg, rgba(46,155,255,0), rgba(46,155,255,0.28), rgba(56,189,248,0))",
-              WebkitMask:
-                "radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px))",
-              mask: "radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px))",
-            }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
-          />
-
-          {/* orbiting service chips */}
-          <motion.div
-            className="absolute inset-0"
-            animate={{ rotate: 360 }}
-            transition={{ duration: ORBIT_DURATION, repeat: Infinity, ease: "linear" }}
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="glass-card relative overflow-hidden rounded-3xl p-6"
           >
-            {orbitChips.map((label, i) => {
-              const angle = (360 / orbitChips.length) * i;
-              return (
-                <div
+            {/* card inner glow */}
+            <div className="pointer-events-none absolute -right-14 -top-14 h-48 w-48 rounded-full bg-brand-500/18 blur-3xl" />
+
+            {/* Header */}
+            <div className="relative flex items-center gap-3 pb-5 border-b border-white/8">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-gradient shadow-glow">
+                <LogoMarkSVG className="h-7 w-7" />
+              </div>
+              <div>
+                <p className="font-display text-sm font-bold text-white tracking-wide">
+                  <span className="gradient-text">NEXA</span>{" "}
+                  <span className="silver-text">DIGITAL</span>
+                </p>
+                <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-silver/45">
+                  Smart Solutions
+                </p>
+              </div>
+              {/* online dot */}
+              <span className="ml-auto flex items-center gap-1.5 rounded-full bg-emerald-500/15 px-2.5 py-1 text-[10px] font-semibold text-emerald-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Online
+              </span>
+            </div>
+
+            {/* Services grid */}
+            <div className="relative mt-4 grid grid-cols-2 gap-2.5">
+              {services.slice(0, 4).map(({ icon: Icon, label, color, iconColor }, i) => (
+                <motion.div
                   key={label}
-                  className="absolute left-1/2 top-1/2"
-                  style={{ transform: `rotate(${angle}deg) translateX(${ORBIT_RADIUS}px)` }}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 + i * 0.08 }}
+                  className={`flex items-center gap-2.5 rounded-2xl bg-gradient-to-br ${color} border border-white/[0.07] p-3`}
                 >
-                  <div style={{ transform: "translate(-50%, -50%)" }}>
-                    <motion.div
-                      animate={{ rotate: [-angle, -angle - 360] }}
-                      transition={{
-                        duration: ORBIT_DURATION,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                    >
-                      <span className="block whitespace-nowrap rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-semibold text-brand-200 shadow-glow backdrop-blur-md">
-                        {label}
-                      </span>
-                    </motion.div>
-                  </div>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/8">
+                    <Icon className={`h-4 w-4 ${iconColor}`} />
+                  </span>
+                  <span className="text-xs font-semibold text-white/90">{label}</span>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* 5th service full width */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.72 }}
+              className={`mt-2.5 flex items-center gap-2.5 rounded-2xl bg-gradient-to-br ${services[4].color} border border-white/[0.07] p-3`}
+            >
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/8">
+                <services[4].icon className={`h-4 w-4 ${services[4].iconColor}`} />
+              </span>
+              <span className="text-xs font-semibold text-white/90">{services[4].label}</span>
+            </motion.div>
+
+            {/* Stats row */}
+            <div className="relative mt-4 grid grid-cols-3 gap-2">
+              {[["50+", "Projects"], ["100%", "Satisfaction"], ["24/7", "Support"]].map(([val, lbl]) => (
+                <div key={lbl} className="rounded-xl bg-white/[0.04] py-2.5 text-center">
+                  <p className="font-display text-base font-bold gradient-text">{val}</p>
+                  <p className="text-[9px] font-medium text-silver/45 uppercase tracking-wider">{lbl}</p>
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </motion.div>
 
-          {/* center logo — floats freely with transparent background */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              className="relative"
-              animate={{ y: [0, -14, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              style={{ z: 60 }}
-            >
-              {/* glow halo */}
-              <div className="pointer-events-none absolute inset-0 -z-10 scale-125 rounded-full bg-brand-500/20 blur-3xl" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo-full.png"
-                alt="Nexa Digital"
-                className="w-52 object-contain drop-shadow-[0_0_32px_rgba(46,155,255,0.65)] sm:w-60"
-                loading="eager"
-                decoding="async"
-              />
-            </motion.div>
-          </div>
+          {/* Floating badge — top right */}
+          <motion.div
+            animate={{ y: [0, -7, 0] }}
+            transition={{ duration: 3.5, delay: 0.5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -right-8 top-8 flex items-center gap-2 rounded-2xl bg-brand-gradient px-4 py-2 shadow-glow"
+          >
+            <Sparkles className="h-3.5 w-3.5 text-white" />
+            <span className="text-[11px] font-bold text-white">AI Powered</span>
+          </motion.div>
+
+          {/* Floating badge — bottom left */}
+          <motion.div
+            animate={{ y: [0, 7, 0] }}
+            transition={{ duration: 4, delay: 1.2, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -left-8 bottom-12 flex items-center gap-2 rounded-2xl glass-card px-4 py-2"
+          >
+            <Star className="h-3.5 w-3.5 text-amber-400 fill-amber-400" />
+            <span className="text-[11px] font-semibold text-white">Top Rated</span>
+          </motion.div>
         </motion.div>
       </div>
 
-      {/* scroll hint */}
+      {/* Scroll hint */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
         <motion.div
           className="h-9 w-5 rounded-full border-2 border-white/20 p-1"
