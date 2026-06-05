@@ -110,6 +110,7 @@ export const translations = {
     testimonials: {
       eyebrow: "آراء العملاء",
       title: "ماذا يقول عملاؤنا",
+      subtitle: "تقييمات حقيقية من عملاء على صفحتنا.",
       items: [
         { name: "Yousef SHehab",       role: "عميل",                   quote: "ناس محترمة ومحترفين، وفعلاً خدمة ممتازة ومصداقية في كل شيء. تعامل حلو وراقٍ ودقة في الكتابة ومهارة في التنسيق للخبرات والمهارات. أنصح الجميع بالتعامل معهم." },
         { name: "Ahmed Ragab",         role: "عميل",                   quote: "ناس محترمة جداً وتعاون على أعلى مستوى. ومهما تطلب منهم لو حببت تغير حاجة ألف مرة يغيرهالك بكل ترحيب. شكراً لكم." },
@@ -297,6 +298,7 @@ export const translations = {
     testimonials: {
       eyebrow: "Testimonials",
       title: "What our clients say",
+      subtitle: "Real reviews from clients on our page.",
       items: [
         { name: "Yousef SHehab",   role: "Client",                  quote: "Truly professional and trustworthy — excellent service, refined communication, accurate writing, and skillful presentation of experience. I recommend everyone to work with them." },
         { name: "Ahmed Ragab",     role: "Client",                  quote: "Extremely professional with top-level cooperation. No matter how many revisions you request, they handle every change with a warm welcome. Thank you." },

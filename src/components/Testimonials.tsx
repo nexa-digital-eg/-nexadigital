@@ -1,17 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Quote, Star } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { Reveal, StaggerGroup, itemVariants } from "./ui/Reveal";
+import { Reveal } from "./ui/Reveal";
 
-function initials(name: string) {
-  return name
-    .split(" ")
-    .slice(0, 2)
-    .map((n) => n[0])
-    .join("");
-}
+/**
+ * Add screenshot filenames here after uploading to /public/reviews/
+ * e.g. "review-yousef.jpg", "review-ahmed.jpg" ...
+ */
+const REVIEW_IMAGES: string[] = [
+  // filenames go here once uploaded
+];
 
 export function Testimonials() {
   const { t } = useLanguage();
@@ -24,42 +24,39 @@ export function Testimonials() {
           <h2 className="mt-5 font-display text-3xl font-bold sm:text-4xl lg:text-5xl text-balance">
             {t.testimonials.title}
           </h2>
+          <p className="mt-4 text-silver/70 sm:text-lg">
+            {t.testimonials.subtitle}
+          </p>
         </Reveal>
 
-        <StaggerGroup className="mt-14 grid gap-6 md:grid-cols-3">
-          {t.testimonials.items.map((item) => (
-            <motion.figure
-              key={item.name}
-              variants={itemVariants}
-              className="glass-card relative flex flex-col p-7"
-            >
-              <Quote className="h-9 w-9 text-brand-500/40" />
-              <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-silver/80">
-                “{item.quote}”
-              </blockquote>
-
-              <div className="mt-5 flex items-center gap-1 text-brand-400">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-current" />
-                ))}
-              </div>
-
-              <figcaption className="mt-5 flex items-center gap-3 border-t border-white/10 pt-5">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-gradient font-bold text-white">
-                  {initials(item.name)}
-                </span>
-                <span>
-                  <span className="block font-semibold text-white">
-                    {item.name}
-                  </span>
-                  <span className="block text-xs text-silver/55">
-                    {item.role}
-                  </span>
-                </span>
-              </figcaption>
-            </motion.figure>
-          ))}
-        </StaggerGroup>
+        {REVIEW_IMAGES.length > 0 ? (
+          <div className="mt-14 columns-1 gap-4 sm:columns-2 lg:columns-3">
+            {REVIEW_IMAGES.map((filename, i) => (
+              <motion.div
+                key={filename}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.07, duration: 0.5 }}
+                className="mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-white/10 shadow-lg"
+              >
+                <Image
+                  src={`/reviews/${filename}`}
+                  alt={`تقييم عميل ${i + 1}`}
+                  width={600}
+                  height={400}
+                  className="w-full object-contain"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          /* placeholder shown until images are uploaded */
+          <p className="mt-14 text-center text-silver/40 text-sm">
+            {/* images will appear here after upload */}
+          </p>
+        )}
       </div>
     </section>
   );
