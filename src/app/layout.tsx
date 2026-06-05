@@ -1,8 +1,11 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Cairo, Outfit, Sora } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import { site } from "@/lib/site";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
 
 // Arabic (and Latin fallback) — handles RTL content.
 const cairo = Cairo({
@@ -88,8 +91,62 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${site.url}/#organization`,
+        name: site.name,
+        alternateName: site.nameAr,
+        url: site.url,
+        logo: { "@type": "ImageObject", url: `${site.url}/logo-full.png` },
+        email: site.email,
+        telephone: site.phoneIntl,
+        sameAs: [site.facebook],
+        description:
+          "Full-service digital agency offering websites, systems, AI solutions, automation, and professional CV & LinkedIn services.",
+        areaServed: ["Egypt", "Saudi Arabia", "United Arab Emirates"],
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": `${site.url}/#localbusiness`,
+        name: site.name,
+        image: `${site.url}/og.jpg`,
+        url: site.url,
+        telephone: site.phoneIntl,
+        email: site.email,
+        address: { "@type": "PostalAddress", addressCountry: "EG" },
+        priceRange: "$$",
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "5",
+          reviewCount: "1000",
+          bestRating: "5",
+        },
+      },
+    ],
+  };
+
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}');`}
+            </Script>
+          </>
+        )}
+      </head>
       <body
         className={`${cairo.variable} ${outfit.variable} ${sora.variable} font-sans`}
       >
