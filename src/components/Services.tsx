@@ -102,17 +102,14 @@ export function Services() {
           {/* CTA card to fill the grid nicely */}
           <motion.div
             variants={itemVariants}
-            className="glass-card relative flex flex-col items-start justify-end overflow-hidden bg-brand-gradient p-7 text-white"
+            className="glass-card relative flex flex-col items-start justify-end overflow-hidden p-7 text-white"
+            style={{
+              background: "linear-gradient(135deg, #0f2744 0%, #1a3a6e 50%, #0a1f3d 100%)",
+            }}
           >
-            {/* rocket background image */}
-            <Image
-              src="/cta.jpg"
-              alt=""
-              fill
-              className="object-cover object-center opacity-40"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-800/80 to-brand-700/60" />
+            {/* animated glow */}
+            <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-500/25 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-cyan-400/15 blur-2xl" />
             <h3 className="relative font-display text-2xl font-bold">
               {t.contact.title}
             </h3>
