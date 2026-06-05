@@ -18,8 +18,8 @@ export const site = {
   facebook: "https://www.facebook.com/61567643876045",
   url: "https://nexadigital.example.com",
   location: {
-    en: "Egypt",
-    ar: "مصر",
+    en: "Egypt · Saudi Arabia · UAE",
+    ar: "مصر · السعودية · الإمارات",
   },
 } as const;
 

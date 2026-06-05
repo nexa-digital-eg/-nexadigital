@@ -18,7 +18,7 @@ ABOUT NEXA DIGITAL:
   3) Automation — connecting tools/APIs and automating workflows to save time.
   4) AI Solutions — chatbots, smart assistants, data analysis, custom AI.
   5) CV & LinkedIn — professional CV writing and LinkedIn optimization (ATS-friendly).
-- Based in Egypt; works with clients worldwide, remotely.
+- Based in Egypt; serves clients in Egypt, Saudi Arabia, UAE and worldwide, remotely.
 - Most websites take ~1–3 weeks. Full post-launch support is provided. Clients own all project files/rights after delivery.
 
 CONTACT (share when the visitor wants a quote, to start a project, or to talk to a human):
