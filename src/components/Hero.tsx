@@ -182,28 +182,24 @@ export function Hero() {
             })}
           </motion.div>
 
-          {/* center app-icon tile */}
+          {/* center logo — floats freely with transparent background */}
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.div
-              className="relative rounded-[1.9rem] bg-gradient-to-br from-brand-400/70 via-brand-500/30 to-cyan-400/40 p-[2px] shadow-glow-lg"
-              animate={{ y: [0, -12, 0] }}
+              className="relative"
+              animate={{ y: [0, -14, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               style={{ z: 60 }}
             >
               {/* glow halo */}
-              <div className="pointer-events-none absolute -inset-6 rounded-[2.4rem] bg-brand-500/20 blur-2xl" />
-              <div className="relative overflow-hidden rounded-[1.8rem]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/icon-512.png"
-                  alt="Nexa Digital"
-                  className="h-40 w-40 object-cover sm:h-44 sm:w-44"
-                  loading="eager"
-                  decoding="async"
-                />
-                {/* sheen */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/15" />
-              </div>
+              <div className="pointer-events-none absolute inset-0 -z-10 scale-125 rounded-full bg-brand-500/20 blur-3xl" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo-full.png"
+                alt="Nexa Digital"
+                className="w-52 object-contain drop-shadow-[0_0_32px_rgba(46,155,255,0.65)] sm:w-60"
+                loading="eager"
+                decoding="async"
+              />
             </motion.div>
           </div>
         </motion.div>
