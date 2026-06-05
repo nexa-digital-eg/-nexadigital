@@ -126,7 +126,7 @@ export const translations = {
       items: [
         { q: "كم يستغرق تنفيذ المشروع؟", a: "يعتمد على حجم المشروع، لكن معظم المواقع تستغرق من أسبوع إلى ثلاثة أسابيع. نحدّد لك جدولًا زمنيًا واضحًا قبل البدء." },
         { q: "هل تقدّمون دعمًا بعد التسليم؟", a: "نعم، نوفّر دعمًا فنيًا وصيانة بعد الإطلاق لضمان عمل مشروعك بسلاسة." },
-        { q: "ما تكلفة الخدمات؟", a: "تختلف حسب احتياجك. تواصل معنا للحصول على عرض سعر مجاني ومخصّص لمشروعك." },
+        { q: "ما تكلفة الخدمات؟", a: "تختلف حسب احتياجك. تواصل معنا للحصول على عرض سعر مناسب ومخصّص لمشروعك." },
         { q: "هل تعملون مع عملاء خارج مصر؟", a: "بالتأكيد، نعمل مع عملاء في جميع أنحاء العالم عن بُعد ونتواصل بسهولة." },
         { q: "هل أملك حقوق المشروع بالكامل؟", a: "نعم، بعد التسليم تكون كل ملفات وحقوق المشروع ملكك بالكامل." },
       ],
@@ -135,7 +135,7 @@ export const translations = {
       eyebrow: "تواصل معنا",
       title: "جاهزون لبدء مشروعك القادم",
       subtitle:
-        "تواصل معنا الآن واحصل على استشارة وعرض سعر مجاني. فريقنا جاهز للرد عليك بسرعة.",
+        "تواصل معنا الآن واحصل على استشارة وعرض سعر مناسب. فريقنا جاهز للرد عليك بسرعة.",
       whatsapp: "راسلنا على واتساب",
       call: "اتصل بنا",
       email: "أرسل إيميل",
@@ -314,7 +314,7 @@ export const translations = {
       items: [
         { q: "How long does a project take?", a: "It depends on the scope, but most websites take one to three weeks. We give you a clear timeline before we start." },
         { q: "Do you offer post-launch support?", a: "Yes, we provide technical support and maintenance after launch to keep your project running smoothly." },
-        { q: "How much do your services cost?", a: "It varies by your needs. Contact us for a free, tailored quote for your project." },
+        { q: "How much do your services cost?", a: "It varies by your needs. Contact us for a tailored quote for your project." },
         { q: "Do you work with clients outside Egypt?", a: "Absolutely. We work with clients worldwide, remotely and seamlessly." },
         { q: "Do I fully own the project?", a: "Yes. After delivery, all project files and rights are fully yours." },
       ],
@@ -323,7 +323,7 @@ export const translations = {
       eyebrow: "Contact Us",
       title: "Ready to start your next project",
       subtitle:
-        "Reach out now for a free consultation and quote. Our team is ready to respond quickly.",
+        "Reach out now for a consultation and a tailored quote. Our team is ready to respond quickly.",
       whatsapp: "Message on WhatsApp",
       call: "Call Us",
       email: "Send Email",
