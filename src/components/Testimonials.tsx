@@ -11,8 +11,8 @@ import { Reveal } from "./ui/Reveal";
  */
 const REVIEW_IMAGES: string[] = [
   "comment-1.png",
-  // "comment-2.png",
-  // "comment-3.png",
+  "comment-2.png",
+  "comment-3.png",
 ];
 
 export function Testimonials() {
