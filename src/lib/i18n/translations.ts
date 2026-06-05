@@ -111,9 +111,12 @@ export const translations = {
       eyebrow: "آراء العملاء",
       title: "ماذا يقول عملاؤنا",
       items: [
-        { name: "أحمد محمود", role: "مؤسس متجر إلكتروني", quote: "فريق نكسا حوّل فكرتي لموقع احترافي زادت مبيعاتي بنسبة كبيرة. التعامل راقٍ والتسليم في الموعد." },
-        { name: "سارة عبدالله", role: "مديرة تسويق", quote: "الأتمتة اللي عملوها وفّرت علينا ساعات شغل يوميًا. احترافية حقيقية ونتائج ملموسة." },
-        { name: "محمد علي", role: "صاحب شركة خدمات", quote: "الشات بوت الذكي بيرد على عملائي 24 ساعة. خدمة ممتازة ودعم متواصل بعد التسليم." },
+        { name: "Yousef SHehab",       role: "عميل",                   quote: "ناس محترمة ومحترفين، وفعلاً خدمة ممتازة ومصداقية في كل شيء. تعامل حلو وراقٍ ودقة في الكتابة ومهارة في التنسيق للخبرات والمهارات. أنصح الجميع بالتعامل معهم." },
+        { name: "Ahmed Ragab",         role: "عميل",                   quote: "ناس محترمة جداً وتعاون على أعلى مستوى. ومهما تطلب منهم لو حببت تغير حاجة ألف مرة يغيرهالك بكل ترحيب. شكراً لكم." },
+        { name: "Ahmed Yasser",        role: "عميل",                   quote: "ما شاالله بجد شغل عالي جداً واحترافية في التنفيذ وجودة فائقة. تسلم إيدكم وشكراً على الذوق الرفيع في المعاملة." },
+        { name: "Abdullah Zuhair",     role: "باحث عن عمل — السعودية", quote: "طلّعوا الـ CV بشكل احترافي ومرتب جداً وقدرت أبرز خبراتي بطريقة ما كنت أتوقعها. ممتن جداً، الله يعطيهم العافية ويوفقهم دائماً." },
+        { name: "Mahmoud Morsy",       role: "عميل CV",                quote: "فهموا بالظبط اللي أنا عاوزه وعملوا CV أفضل ما كنت متوقع. ماشاء الله مصداقية وأمانة، الله يصلح حالهم." },
+        { name: "Hebba Muhammad",      role: "عميلة",                  quote: "ماشاء الله تسلم الأيادي. صراحة ذوق ومصداقية وسرعة في الرد واحترام المواعيد. فعلاً ناس مسؤولة ربنا يحسن ما بين إيديهم." },
       ],
     },
     faq: {
@@ -295,9 +298,12 @@ export const translations = {
       eyebrow: "Testimonials",
       title: "What our clients say",
       items: [
-        { name: "Ahmed Mahmoud", role: "E-Commerce Founder", quote: "Nexa turned my idea into a professional site that significantly boosted my sales. Classy service and on-time delivery." },
-        { name: "Sara Abdullah", role: "Marketing Manager", quote: "The automation they built saves us hours every day. True professionalism and tangible results." },
-        { name: "Mohamed Ali", role: "Services Business Owner", quote: "The smart chatbot answers my clients 24/7. Excellent service and continuous support after delivery." },
+        { name: "Yousef SHehab",   role: "Client",                  quote: "Truly professional and trustworthy — excellent service, refined communication, accurate writing, and skillful presentation of experience. I recommend everyone to work with them." },
+        { name: "Ahmed Ragab",     role: "Client",                  quote: "Extremely professional with top-level cooperation. No matter how many revisions you request, they handle every change with a warm welcome. Thank you." },
+        { name: "Ahmed Yasser",    role: "Client",                  quote: "MashaAllah, truly exceptional work — high-level professionalism and superb quality in execution. Your refined treatment and attention to detail speak for themselves." },
+        { name: "Abdullah Zuhair", role: "Job Seeker — Saudi Arabia", quote: "They presented my CV in a professional and polished way, highlighting my experience in ways I never imagined. I am very grateful — God bless you." },
+        { name: "Mahmoud Morsy",   role: "CV Client",               quote: "They understood exactly what I wanted and delivered a CV far better than I expected. MashaAllah — true integrity and trustworthiness." },
+        { name: "Hebba Muhammad",  role: "Client",                  quote: "God bless your hands. Truly refined, honest, quick to respond, and respectful of deadlines. A genuinely responsible team — may God bless all their work." },
       ],
     },
     faq: {
