@@ -16,21 +16,30 @@ export function Contact() {
       label: t.contact.whatsapp,
       value: site.whatsapp,
       href: whatsappLink(t.contact.whatsappMsg),
-      accent: "from-green-500/30 to-emerald-500/10",
+      iconBg: "bg-emerald-500",
+      glow: "rgba(16,185,129,0.35)",
+      border: "hover:border-emerald-400/50",
+      badge: "WhatsApp",
     },
     {
       icon: Phone,
       label: t.contact.call,
       value: site.phone,
       href: telLink,
-      accent: "from-brand-500/30 to-cyan-500/10",
+      iconBg: "bg-brand-500",
+      glow: "rgba(46,155,255,0.35)",
+      border: "hover:border-brand-400/50",
+      badge: null,
     },
     {
       icon: Mail,
       label: t.contact.email,
       value: site.email,
       href: mailLink,
-      accent: "from-cyan-500/25 to-brand-600/15",
+      iconBg: "bg-violet-500",
+      glow: "rgba(139,92,246,0.35)",
+      border: "hover:border-violet-400/50",
+      badge: null,
     },
   ];
 
@@ -62,7 +71,7 @@ export function Contact() {
                 {t.contact.orDirect}
               </p>
               <div className="mt-3 flex flex-col gap-3">
-                {channels.map((channel) => {
+                {channels.map((channel, i) => {
                   const Icon = channel.icon;
                   return (
                     <motion.a
@@ -70,23 +79,62 @@ export function Contact() {
                       href={channel.href}
                       target={channel.href.startsWith("http") ? "_blank" : undefined}
                       rel="noopener noreferrer"
-                      whileHover={{ x: locale === "ar" ? -6 : 6 }}
-                      className={`group flex items-center gap-4 rounded-2xl border border-white/10 bg-gradient-to-br ${channel.accent} p-4 transition-colors hover:border-brand-400/40`}
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.45 }}
+                      whileHover={{ scale: 1.02, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4 transition-all duration-300 ${channel.border}`}
+                      style={{ boxShadow: "0 0 0 0 transparent" }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 32px ${channel.glow}`;
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 0 transparent";
+                      }}
                     >
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur">
-                        <Icon className="h-5 w-5" />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block text-sm font-semibold text-white">
-                          {channel.label}
+                      {/* bg shimmer on hover */}
+                      <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/[0.04] to-transparent transition-transform duration-500 group-hover:translate-x-full" />
+
+                      {/* icon */}
+                      <div className="relative shrink-0">
+                        <div
+                          className="pointer-events-none absolute inset-0 scale-150 rounded-full blur-md opacity-50 transition-opacity duration-300 group-hover:opacity-90"
+                          style={{ background: channel.glow }}
+                        />
+                        <span className={`relative flex h-12 w-12 items-center justify-center rounded-xl ${channel.iconBg} shadow-lg`}>
+                          <Icon className="h-5 w-5 text-white" />
+                        </span>
+                      </div>
+
+                      {/* text */}
+                      <span className="min-w-0 flex-1">
+                        <span className="flex items-center gap-2">
+                          <span className="block text-sm font-bold text-white">
+                            {channel.label}
+                          </span>
+                          {channel.badge && (
+                            <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-emerald-400">
+                              {channel.badge}
+                            </span>
+                          )}
                         </span>
                         <span
                           dir="ltr"
-                          className="block truncate text-sm text-silver/85 group-hover:text-silver-light"
+                          className="mt-0.5 block truncate text-sm text-silver/65 transition-colors duration-200 group-hover:text-silver-light"
                         >
                           {channel.value}
                         </span>
                       </span>
+
+                      {/* arrow */}
+                      <svg
+                        className={`h-4 w-4 shrink-0 text-silver/30 transition-all duration-300 group-hover:text-white group-hover:translate-x-1 ${locale === "ar" ? "rotate-180 group-hover:-translate-x-1 group-hover:translate-x-0" : ""}`}
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                      </svg>
                     </motion.a>
                   );
                 })}
