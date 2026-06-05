@@ -163,7 +163,7 @@ export const translations = {
       ourServices: "خدماتنا",
       contactInfo: "بيانات التواصل",
       rights: "جميع الحقوق محفوظة.",
-      madeWith: "صُنع بشغف في",
+      madeWith: "صُنع بشغف بواسطة",
     },
     common: {
       language: "English",
@@ -347,7 +347,7 @@ export const translations = {
       ourServices: "Our Services",
       contactInfo: "Contact Info",
       rights: "All rights reserved.",
-      madeWith: "Crafted with passion in",
+      madeWith: "Crafted with passion by",
     },
     common: {
       language: "العربية",

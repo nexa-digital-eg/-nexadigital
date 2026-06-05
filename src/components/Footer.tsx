@@ -134,7 +134,7 @@ export function Footer() {
           </p>
           <p className="flex items-center gap-1.5 text-sm text-silver/50">
             {t.footer.madeWith}{" "}
-            {locale === "ar" ? site.location.ar : site.location.en}
+            <span className="font-semibold gradient-text">Nexa</span>
             <Heart className="h-3.5 w-3.5 fill-brand-500 text-brand-500" />
           </p>
         </div>
